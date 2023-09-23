@@ -11,8 +11,22 @@ function Navbar() {
 
                 <StyledLink link="/about" title="About" />
             </div>
+            <div className="flex gap-2">
+                <StyledLink title={"Sign up"} link="/signup"></StyledLink>
+                <StyledLink title={"Login"} link="/login"></StyledLink>
+            </div>
         </div>
     );
+}
+
+// eslint-disable-next-line no-unused-vars
+const StyledButton = ({title, onClick})=>{
+    return (
+        <button
+        className="text-lg flex flex-col justify-center p-2 min-w-[5em] bg-secondary text-center rounded hover:scale-110 hover:shadow-surround hover:shadow-accent  hover:text-accent"
+        onClick={onClick}
+        >{title}</button>
+    )
 }
 
 const StyledLink = ({ title, link }) => {
