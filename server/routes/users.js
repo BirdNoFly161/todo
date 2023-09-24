@@ -1,14 +1,16 @@
-var express = require('express');
+import express from "express";
+
 var router = express.Router();
 
-var register_user = require('../controllers/register_user');
+import register_user from "../controllers/register_user.js";
+import update_user from "../controllers/update_user.js";
+import get_users from "../controllers/get_users.js";
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-
-  res.send('respond with a resource');
-});
+router.get('/', get_users);
 
 router.post('/' ,register_user);
 
-module.exports = router;
+router.patch('/',update_user)
+
+export default router;

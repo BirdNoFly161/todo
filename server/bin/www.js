@@ -4,9 +4,12 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('server:server');
-var http = require('http');
+import app from '../app.js';
+import Debug from 'debug';
+import http from 'http'
+import mongoose from 'mongoose';
+
+var debug = Debug('server:server');
 
 /**
  * Get port from environment and store in Express.
@@ -24,8 +27,19 @@ var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
+import {uri} from '../database/config.js'
+mongoose
+  .connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log('connected to database');
+    server.listen(port);
+  })
+  .catch((error) => console.log(`${error} did not connect`));
 
-server.listen(port);
+
 server.on('error', onError);
 server.on('listening', onListening);
 
@@ -87,4 +101,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  console.log('server listening');
 }
