@@ -1,16 +1,38 @@
 import express from "express";
+import User from "../database/models/userSchema.js";
 
 var router = express.Router();
 
-import register_user from "../controllers/register_user.js";
-import update_user from "../controllers/update_user.js";
-import get_users from "../controllers/get_users.js";
+router.get("/", async function get_users(req, res) {
+  try {
+    let users = await User.find({});
+    console.log(users);
+    res.status(200).json({ users });
+  } catch (err) {
+    console.log("error querying database");
+    res.status(500);
+  }
+});
 
-/* GET users listing. */
-router.get('/', get_users);
+router.post("/", async function register_user(req, res) {
+  console.log("working on register logic... ");
+  res.status(200).json({ msg: "user created successfully" });
+});
 
-router.post('/' ,register_user);
+router.patch("/", async function update_user(req, res) {
+  try {
+    let users = req.body.users;
 
-router.patch('/',update_user)
+    for (let i = 0; i < users.length; i++) {
+      let user = await User.findOneAndUpdate({ _id: users[i]._id }, users[i]);
+      console.log("updated user: ", user);
+    }
+
+    res.status(200);
+  } catch (err) {
+    console.log("error querying database");
+    res.status(500);
+  }
+});
 
 export default router;
