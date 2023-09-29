@@ -1,5 +1,8 @@
-import {Strategy as JwtStrategy} from 'passport-jwt';
-console.log(JwtStrategy);
+import {Strategy as JwtStrategy, ExtractJwt} from 'passport-jwt';
+
+let options = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken,
+}
 
 export default function (app){
     
