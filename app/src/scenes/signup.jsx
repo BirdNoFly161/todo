@@ -1,8 +1,10 @@
 import { Formik } from "formik";
 import * as Yup from "yup";
+import toast from "react-hot-toast";
 import Spinner from "../components/spinner";
 import { BiErrorCircle } from "react-icons/bi";
 import { BiCheckCircle } from "react-icons/bi";
+import api from "../../api";
 
 function Signup() {
   return (
@@ -54,10 +56,10 @@ function SignupForm() {
     <>
       <Formik
         initialValues={{
-          firstName: "",
-          lastName: "",
-          email: "",
-          password: "",
+          firstName: "Oussama",
+          lastName: "Benmansour",
+          email: "oussama@gmail.com",
+          password: "Passowrd123&&",
         }}
         validationSchema={Yup.object({
           firstName: Yup.string().required("First name is required"),
@@ -81,8 +83,13 @@ function SignupForm() {
               "Password must contain atleast one symbol"
             ),
         })}
-        onSubmit={({ values }) => {
-          console.log(values);
+        onSubmit={async (values, {setSubmitting}) => {
+          let response = await api("/users/register", "POST", values);
+          setSubmitting(false);
+          if(response.status === 200){
+            toast.success('Succesfully created account');
+          }
+          console.log(response);
         }}
       >
         {(formik) => (

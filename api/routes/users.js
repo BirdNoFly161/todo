@@ -14,9 +14,18 @@ router.get("/", async function get_users(req, res) {
   }
 });
 
-router.post("/", async function register_user(req, res) {
-  console.log("working on register logic... ");
-  res.status(200).json({ msg: "user created successfully" });
+router.post("/register", async function register_user(req, res) {
+  
+  try{
+    const new_user = new User(req.body);
+    await new_user.save()
+    res.status(200).json({ msg: "user created successfully" });
+  }
+  catch(error){
+    console.log('couldnt register user, error: ', error);
+    res.status(500);
+  }
+
 });
 
 router.patch("/", async function update_user(req, res) {

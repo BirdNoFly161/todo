@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar"
 import { Outlet } from "react-router-dom"
+import { Toaster } from "react-hot-toast"
 
 function Home() {
 
@@ -8,6 +9,7 @@ function Home() {
     <>
     <Navbar/>
     <div className="flex flex-col justify-center items-center p-6"><Outlet/></div>
+    <Toaster/>
     </>
   )
 }
