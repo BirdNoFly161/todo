@@ -18,50 +18,19 @@ function Signup() {
 }
 
 function SignupForm() {
-  // eslint-disable-next-line no-unused-vars
-  const validate = (values) => {
-    const errors = {};
-    if (!values.firstName) {
-      errors.firstName = "Required";
-    }
-
-    if (!values.lastName) {
-      errors.lastName = "Required";
-    }
-
-    if (!values.email) {
-      errors.email = "Required";
-    } else if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-    ) {
-      errors.email = "Invalid email";
-    }
-
-    if (!values.password) {
-      errors.password = "Required";
-    } else if (!/(?=.*[A-Z])/.test(values.password)) {
-      errors.password = "Must contain uppercase letters";
-    } else if (!/(?=.*[a-z])/.test(values.password)) {
-      errors.password = "Must contain lowercase letters";
-    } else if (!/(?=.*\d)/.test(values.password)) {
-      errors.password = "Must contain digits";
-    } else if (!/(?=.*[-_~!@#$%^&+])/.test(values.password)) {
-      errors.password = "Must contain symbols";
-    }
-
-    return errors;
-  };
 
   return (
     <>
       <Formik
         initialValues={{
+          username: "oussama161",
           firstName: "Oussama",
           lastName: "Benmansour",
           email: "oussama@gmail.com",
           password: "Passowrd123&&",
         }}
         validationSchema={Yup.object({
+          username: Yup.string().required('User name is required'),
           firstName: Yup.string().required("First name is required"),
           lastName: Yup.string().required("Last name is required"),
           email: Yup.string()
@@ -98,6 +67,42 @@ function SignupForm() {
             onSubmit={formik.handleSubmit}
           >
             <div className="flex flex-col gap-3 w-full">
+            <div className="flex flex-col">
+                {" "}
+                <div className="flex items-center">
+                  {" "}
+                  <label
+                    className="min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
+                    htmlFor="username"
+                  >
+                    User name
+                  </label>
+                  <input
+                    className="grow px-2 py-1 rounded-tr rounded-br"
+                    type="text"
+                    id="username"
+                    name="username"
+                    value={formik.values.username}
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                  />
+                  {formik.touched.username ? (
+                    formik.errors.username ? (
+                      <BiErrorCircle className="text-red-500" />
+                    ) : (
+                      <BiCheckCircle className="text-green-500" />
+                    )
+                  ) : (
+                    <div className="w-[1em] h-[1em]" />
+                  )}
+                </div>
+                {formik.touched.username && formik.errors.username ? (
+                  <div className="bg-red-500 border-b-red-700 text-white">
+                    {formik.errors.username}
+                  </div>
+                ) : null}
+              </div>
+
               <div className="flex flex-col">
                 {" "}
                 <div className="flex items-center">
