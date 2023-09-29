@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { RouterProvider } from "react-router-dom";
 import Home from "./scenes";
-import Login from "./scenes/login";
+import SignIn from "./scenes/signin";
 import Signup from "./scenes/signup";
 import "./App.css";
 
@@ -17,7 +17,7 @@ function App() {
                 },
                 {
                     path: "/login",
-                    element: <Login />,
+                    element: <SignIn />,
                 },
             ],
         },

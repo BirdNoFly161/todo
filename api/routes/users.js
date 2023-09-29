@@ -28,6 +28,19 @@ router.post("/register", async function register_user(req, res) {
 
 });
 
+router.post("/login", async function login_user(req, res) {
+  
+  try{
+    console.log('got login request with data: ', req.body)
+    res.status(200).json({ msg: "user created successfully" });
+  }
+  catch(error){
+    console.log('couldnt login user, error: ', error);
+    res.status(500);
+  }
+
+});
+
 router.patch("/", async function update_user(req, res) {
   try {
     let users = req.body.users;
