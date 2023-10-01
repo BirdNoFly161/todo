@@ -12,7 +12,7 @@ export default function passport_middleware(app){
     passport.use('user',
     new JwtStrategy(options, async function verify(jwt_payload, done){
         console.log('from passport middleware, payload: ', jwt_payload);
-        return done(null, false)
+        return done(null, {id: 12344})
         //let user = User.findOne()
     }));
 

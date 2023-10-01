@@ -4,12 +4,17 @@ export default async function api(path, method, data){
 
     let options = {
         method: method,
+        credentials: 'include',
         headers:{
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         }
         ,
-        body: JSON.stringify(data),
     };
+
+    if(method != 'GET'){
+        options.body = JSON.stringify(data)
+        //options.headers['Content-Type'] = 'application/json'
+    }
 
     let response = await fetch(`${uri}${path}`, options);
     return response;
