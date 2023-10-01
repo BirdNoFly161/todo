@@ -1,5 +1,7 @@
 import express from "express";
+import jwt from 'jsonwebtoken';
 import User from "../database/models/userSchema.js";
+import { secret } from "../configs/environement.js";
 
 var router = express.Router();
 
@@ -31,8 +33,16 @@ router.post("/register", async function register_user(req, res) {
 router.post("/login", async function login_user(req, res) {
   
   try{
-    console.log('got login request with data: ', req.body)
-    res.status(200).json({ msg: "user created successfully" });
+    console.log('got login request with data: ', req.body);
+    let user = await User.findOne({username: req.body.username});
+    console.log('user: ', user);
+    if(user.password != req.body.password){
+      return res.status(403).json({msg: "password is incorrect"});
+    }
+    console.log('user authenticated correctly');
+    let token = jwt.sign({_id: user._id}, secret)
+    res.cookie('token', token);
+    res.status(200).json({ token, user, msg: "user created successfully" });
   }
   catch(error){
     console.log('couldnt login user, error: ', error);
