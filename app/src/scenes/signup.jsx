@@ -18,7 +18,6 @@ function Signup() {
 }
 
 function SignupForm() {
-
   return (
     <>
       <Formik
@@ -30,7 +29,7 @@ function SignupForm() {
           password: "Passowrd123&&",
         }}
         validationSchema={Yup.object({
-          username: Yup.string().required('User name is required'),
+          username: Yup.string().required("User name is required"),
           firstName: Yup.string().required("First name is required"),
           lastName: Yup.string().required("Last name is required"),
           email: Yup.string()
@@ -52,11 +51,11 @@ function SignupForm() {
               "Password must contain atleast one symbol"
             ),
         })}
-        onSubmit={async (values, {setSubmitting}) => {
+        onSubmit={async (values, { setSubmitting }) => {
           let response = await api("/users/register", "POST", values);
           setSubmitting(false);
-          if(response.status === 200){
-            toast.success('Succesfully created account');
+          if (response.status === 200) {
+            toast.success("Succesfully created account");
           }
           console.log(response);
         }}
@@ -67,7 +66,7 @@ function SignupForm() {
             onSubmit={formik.handleSubmit}
           >
             <div className="flex flex-col gap-3 w-full">
-            <div className="flex flex-col">
+              <div className="flex flex-col">
                 {" "}
                 <div className="flex items-center">
                   {" "}

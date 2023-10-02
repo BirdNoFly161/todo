@@ -1,8 +1,8 @@
 import express from "express";
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import User from "../database/models/userSchema.js";
 import { secret } from "../configs/environement.js";
-import passport from 'passport';
+import passport from "passport";
 
 var router = express.Router();
 
@@ -18,39 +18,33 @@ router.get("/", async function get_users(req, res) {
 });
 
 router.post("/register", async function register_user(req, res) {
-  
-  try{
+  try {
     const new_user = new User(req.body);
-    await new_user.save()
+    await new_user.save();
     res.status(200).json({ msg: "user created successfully" });
-  }
-  catch(error){
-    console.log('couldnt register user, error: ', error);
+  } catch (error) {
+    console.log("couldnt register user, error: ", error);
     res.status(500);
   }
-
 });
 
 router.post("/login", async function login_user(req, res) {
-  
-  try{
-    console.log('got login request with data: ', req.body);
-    let user = await User.findOne({username: req.body.username});
-    console.log('user: ', user);
-    if(user.password != req.body.password){
-      return res.status(403).json({msg: "password is incorrect"});
+  try {
+    console.log("got login request with data: ", req.body);
+    let user = await User.findOne({ username: req.body.username });
+    console.log("user: ", user);
+    if (user.password != req.body.password) {
+      return res.status(403).json({ msg: "password is incorrect" });
     }
-    console.log('user authenticated correctly');
-    let token = jwt.sign({_id: user._id}, secret)
-    res.cookie('token', token);
-    res.cookie('random', {name: 'hello world'})
+    console.log("user authenticated correctly");
+    let token = jwt.sign({ _id: user._id }, secret);
+    res.cookie("token", token);
+    res.cookie("random", { name: "hello world" });
     res.status(200).json({ token, user, msg: "user created successfully" });
-  }
-  catch(error){
-    console.log('couldnt login user, error: ', error);
+  } catch (error) {
+    console.log("couldnt login user, error: ", error);
     res.status(500);
   }
-
 });
 
 router.patch("/", async function update_user(req, res) {
@@ -69,16 +63,19 @@ router.patch("/", async function update_user(req, res) {
   }
 });
 
-router.get('/test', passport.authenticate('user', {session: false}), function(req, res) {
-  console.log('got to test');
-});
-
-router.get('/token', async function(req, res) {
-  console.log('got to token request', req.cookies);
-  if(req.cookies.token){
-    res.status(200).json({token:req.cookies.token});
+router.get(
+  "/test",
+  passport.authenticate("user", { session: false }),
+  function (req, res) {
+    console.log("got to test");
   }
-  else{
+);
+
+router.get("/token", async function (req, res) {
+  console.log("got to token request", req.cookies);
+  if (req.cookies.token) {
+    res.status(200).json({ token: req.cookies.token });
+  } else {
     res.status(200);
   }
 });
