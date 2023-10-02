@@ -2,9 +2,13 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import Spinner from "../components/spinner";
 import { BiErrorCircle } from "react-icons/bi";
+import { useDispatch } from "react-redux";
+import { setAuthToken } from "../redux/user/userSlice";
+
 import api from "../../api"
 
 function SignIn() {
+  
   return (
     <div className="flex flex-col justify-center w-1/3">
     <h2 className="text-lg p-2 min-w-[5em] bg-secondary text-center rounded-tl rounded-tr">
@@ -17,6 +21,8 @@ function SignIn() {
 
 
 function SignInForm() {
+
+  const dispatch = useDispatch();
 
     return (
       <>
@@ -31,7 +37,9 @@ function SignInForm() {
               .required("Password is required"),
           })}
           onSubmit={async (values, {setSubmitting}) => {
-            let response = await api("/users/login", "POST", values);
+            let response = await api("/users/login",null, "POST", values);
+            response = await response.json()
+            dispatch(setAuthToken(response.token));
             setSubmitting(false);
             console.log(response);
           }}

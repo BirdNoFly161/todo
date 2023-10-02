@@ -4,7 +4,7 @@ import {secret} from '../configs/environement.js';
 import User from '../database/models/userSchema.js';
 
 let options = {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken,
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: secret
 }
 
@@ -18,4 +18,6 @@ export default function passport_middleware(app){
 
 
     app.use(passport.initialize());
+    console.log('initialized passport middleware successfully');
+
 }
