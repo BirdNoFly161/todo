@@ -28,9 +28,10 @@ export default function passport_middleware(app) {
         }
       }
       catch(error){
-        return done(error, false)
+        console.log(error)
       }
       console.log("from passport middleware, payload: ", jwt_payload);
+      return done(null, false);
     })
   );
 

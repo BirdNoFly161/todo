@@ -78,8 +78,13 @@ router.get("/token", passport.authenticate("user", { session: false }), async fu
   if (req.cookies.token) {
     res.status(200).json({ token: req.cookies.token, user: req.user });
   } else {
-    res.status(401).send('Invalid token');
+    res.status(401).json({msg:'Invalid token'});
   }
+});
+
+router.post('/logout', passport.authenticate("user", {session: false}), async function(req, res){
+  res.clearCookie('token');
+  res.status(200).send('logged out');
 });
 
 export default router;

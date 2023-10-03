@@ -22,7 +22,7 @@ class api {
     return new Promise(async (resolve, reject) => {
       try {
         let options = { ...this.options };
-        options.method= 'GET';
+        options.method = "GET";
         if (this.token) {
           options.headers.Authorization = `Bearer ${this.token}`;
         }
@@ -39,8 +39,10 @@ class api {
     return new Promise(async (resolve, reject) => {
       try {
         let options = { ...this.options };
-        options.method= 'POST';
-        options.body = JSON.stringify(body);
+        options.method = "POST";
+        if (body) {
+          options.body = JSON.stringify(body);
+        }
         if (this.token) {
           options.headers.Authorization = `Bearer ${this.token}`;
         }
