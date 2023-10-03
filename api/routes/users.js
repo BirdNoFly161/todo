@@ -68,15 +68,17 @@ router.get(
   passport.authenticate("user", { session: false }),
   function (req, res) {
     console.log("got to test");
+    console.log(req.user);
+    res.status(200).json({msg: 'test success'});
   }
 );
 
-router.get("/token", async function (req, res) {
+router.get("/token", passport.authenticate("user", { session: false }), async function (req, res) {
   console.log("got to token request", req.cookies);
   if (req.cookies.token) {
-    res.status(200).json({ token: req.cookies.token });
+    res.status(200).json({ token: req.cookies.token, user: req.user });
   } else {
-    res.status(200);
+    res.status(401).send('Invalid token');
   }
 });
 

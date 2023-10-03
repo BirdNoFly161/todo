@@ -1,23 +1,57 @@
-const uri = "http://localhost:3001";
-
-export default async function api(path, token = null, method, data) {
-  let options = {
-    method: method,
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-
-  if (method != "GET") {
-    options.body = JSON.stringify(data);
-    //options.headers['Content-Type'] = 'application/json'
+class api {
+  constructor() {
+    this.uri = "http://localhost:3001";
+    this.options = {
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
   }
 
-  if (token) {
-    options.headers.Authorization = `Bearer ${token}`;
+  setAuthToken(token) {
+    this.token = token;
   }
-  console.log("made api call with options: ", options);
-  let response = await fetch(`${uri}${path}`, options);
-  return response;
+
+  clearAuthToken() {
+    this.token = null;
+  }
+
+  get(path) {
+    // eslint-disable-next-line no-async-promise-executor
+    return new Promise(async (resolve, reject) => {
+      try {
+        let options = { ...this.options };
+        options.method= 'GET';
+        if (this.token) {
+          options.headers.Authorization = `Bearer ${this.token}`;
+        }
+        let response = await fetch(`${this.uri}${path}`, options);
+        resolve(response);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  post(path, body) {
+    // eslint-disable-next-line no-async-promise-executor
+    return new Promise(async (resolve, reject) => {
+      try {
+        let options = { ...this.options };
+        options.method= 'POST';
+        options.body = JSON.stringify(body);
+        if (this.token) {
+          options.headers.Authorization = `Bearer ${this.token}`;
+        }
+        let response = await fetch(`${this.uri}${path}`, options);
+        resolve(response);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
 }
+
+const API = new api();
+export default API;

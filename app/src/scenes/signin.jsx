@@ -4,8 +4,8 @@ import Spinner from "../components/spinner";
 import { BiErrorCircle } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { setAuthToken } from "../redux/user/userSlice";
-
-import api from "../../api";
+import { setUser } from "../redux/user/userSlice";
+import API from "../../api";
 
 function SignIn() {
   return (
@@ -33,9 +33,11 @@ function SignInForm() {
           password: Yup.string().required("Password is required"),
         })}
         onSubmit={async (values, { setSubmitting }) => {
-          let response = await api("/users/login", null, "POST", values);
+          let response = await API.post("/users/login", values);
           response = await response.json();
           dispatch(setAuthToken(response.token));
+          API.setAuthToken(response.token);
+          dispatch(setUser(response.user));
           setSubmitting(false);
           console.log(response);
         }}
