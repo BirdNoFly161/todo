@@ -15,3 +15,5 @@ add logout logic
 test passport some more, test if the cookie extractor or the fromBearer token is being used
 
 clean up whats being returned from the /users/token get endpoint
+
+add admin and make so only admins can see users list
