@@ -2,48 +2,59 @@ import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
-import { setAuthToken } from "../redux/user/userSlice";
-import api from "../../api";
+import { useDispatch } from "react-redux";
+import { setAuthToken, setUser } from "../redux/user/userSlice";
+
+import API from "../../api";
 
 function Home() {
-    const [loading, setLoading] = useState(false);
-    const dispatch = useDispatch();
-    const token = useSelector((state) => state.user.token)
-
-    useEffect(() => {
-        async function init() {
-            let response = (await api("/users/token",null, "GET", null));
-            response = await response.json();
-            dispatch(setAuthToken(response.token))
-            console.log(response);
-
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    async function init() {
+      try {
+        let response = await API.get("/users/token");
+        if (response.status === 401) {
+          return;
         }
-        init();
-    }, []);
+        response = await response.json();
+        dispatch(setAuthToken(response.token));
+        dispatch(setUser(response.user));
+        API.setAuthToken(response.token);
+        //console.log(response);
+      } catch (error) {
+        //console.log(error);
+      }
+    }
+    init();
+  }, []);
 
-    return (
-        <>
-            <Navbar />
-            <div className="flex flex-col justify-center items-center p-6">
-                <Outlet />
-            </div>
-            {
-            <button
-                className="flex justify-center w-1/3 bg-secondary hover:scale-110 hover:shadow-surround hover:shadow-accent  hover:text-accent rounded px-2 py-1"
-                onClick={async () => {
-                    setLoading(true);
-                    let response = await api("/users/test",(token?token:null), "GET", null);
-                    setLoading(false);
-                    console.log(response);
-                }}
-            >
-                {!loading ? "Test the token ! " : "Loading"}
-            </button>
-              }
-            <Toaster />
-        </>
-    );
+  return (
+    <>
+      <Navbar />
+      <div className="flex flex-col justify-center items-center p-6">
+        <Outlet />
+      </div>
+      {
+        <div className="w-full flex justify-center">
+        <button
+          className="flex justify-center w-1/3 bg-secondary hover:scale-110 hover:shadow-surround hover:shadow-accent  hover:text-accent rounded px-2 py-1"
+          onClick={async () => {
+            setLoading(true);
+            let response = await API.get("/users/token");
+            response = await response.json();
+            setLoading(false);
+            console.log(response);
+          }}
+        >
+          {loading ? "Loading" : "Test the token ! "}
+        </button>
+        </div>
+
+      }
+      <Toaster />
+    </>
+  );
 }
 
 export default Home;

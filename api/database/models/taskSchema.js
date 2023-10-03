@@ -1,16 +1,16 @@
 import mongoose from "mongoose";
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 
-const {Schema} = mongoose;
+const { Schema } = mongoose;
 
 const TaskSchema = new Schema({
-    title: String,
-    type: String,
-    started: Date,
-    deadline: Date,
-    people: [String],
-    description: String,
+  title: String,
+  type: String,
+  started: Date,
+  deadline: Date,
+  people: [String],
+  description: String,
 });
 
-const Task = mongoose.model("Movie", TaskSchema)
+const Task = mongoose.model("Movie", TaskSchema);
 export default Task;
