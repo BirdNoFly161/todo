@@ -12,8 +12,10 @@ function Tasks() {
         if (!currentUser) {
           return;
         }
-        console.log('sending tasks/search with current user: ', currentUser)
-        let response = await API.post("/tasks/search", { user: currentUser });
+        console.log("sending tasks/search with current user: ", currentUser);
+        let response = await API.post("/tasks/search", {
+          user: currentUser,
+        });
         response = await response.json();
         setTasks(response.tasks);
       } catch (error) {
@@ -25,16 +27,16 @@ function Tasks() {
   }, []);
 
   return (
-      <div>
-        <h1>Tasks</h1>
-        {tasks.map((task, index) => (
-          <Task key={index} title={task.title} />
-        ))}
-      </div>
+    <div>
+      <h1>Tasks</h1>
+      {tasks.map((task, index) => (
+        <Task key={index} title={task.title} />
+      ))}
+    </div>
   );
 }
 
-function Task({ title, done }) {
+function Task({ title }) {
   return (
     <div className="flex justify-between bg-secondary rounded">{title}</div>
   );

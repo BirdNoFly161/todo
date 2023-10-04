@@ -16,6 +16,7 @@ function Home() {
       try {
         let response = await API.get("/users/token");
         if (response.status === 401) {
+          setLoading(false);
           return;
         }
         response = await response.json();
@@ -25,7 +26,7 @@ function Home() {
         //console.log(response);
         setLoading(false);
       } catch (error) {
-        //console.log(error);
+        console.log(error);
       }
     }
     init();
@@ -35,25 +36,24 @@ function Home() {
     <>
       <Navbar />
       <div className="flex flex-col justify-center items-center p-6">
-        {loading && <Spinner/>}
+        {loading && <Spinner />}
         {!loading && <Outlet />}
       </div>
       {
         <div className="w-full flex justify-center">
-        <button
-          className="flex justify-center w-1/3 bg-secondary hover:scale-110 hover:shadow-surround hover:shadow-accent  hover:text-accent rounded px-2 py-1"
-          onClick={async () => {
-            setLoading(true);
-            let response = await API.get("/users/token");
-            response = await response.json();
-            setLoading(false);
-            console.log(response);
-          }}
-        >
-          {loading ? "Loading" : "Test the token ! "}
-        </button>
+          <button
+            className="flex justify-center w-1/3 bg-secondary hover:scale-110 hover:shadow-surround hover:shadow-accent  hover:text-accent rounded px-2 py-1"
+            onClick={async () => {
+              setLoading(true);
+              let response = await API.get("/users/token");
+              response = await response.json();
+              setLoading(false);
+              console.log(response);
+            }}
+          >
+            {loading ? "Loading" : "Test the token ! "}
+          </button>
         </div>
-
       }
       <Toaster />
     </>
