@@ -1,19 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  user: null,
+  currentUser: null,
   token: null,
+  loading: false,
 };
 
 export const userSlice = createSlice({
-  name: "user",
+  name: "currentUser",
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.user = action.payload;
+      state.currentUser = action.payload;
     },
     clearUser: (state) => {
-      state.user = null;
+      state.currentUser = null;
     },
     setAuthToken: (state, action) => {
       state.token = action.payload;
@@ -21,11 +22,14 @@ export const userSlice = createSlice({
     clearAuthToken: (state) => {
       state.token = null;
     },
+    setLoadingUser: (state, action) =>{
+      state.loading = action.payload;
+    }
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setUser, clearUser, setAuthToken, clearAuthToken } =
+export const { setUser, clearUser, setAuthToken, clearAuthToken, setLoadingUser } =
   userSlice.actions;
 
 export default userSlice.reducer;

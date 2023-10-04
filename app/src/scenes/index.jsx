@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
+import Spinner from "../components/spinner";
 import { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { setAuthToken, setUser } from "../redux/user/userSlice";
@@ -8,7 +9,7 @@ import { setAuthToken, setUser } from "../redux/user/userSlice";
 import API from "../../api";
 
 function Home() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
     async function init() {
@@ -22,6 +23,7 @@ function Home() {
         dispatch(setUser(response.user));
         API.setAuthToken(response.token);
         //console.log(response);
+        setLoading(false);
       } catch (error) {
         //console.log(error);
       }
@@ -33,7 +35,8 @@ function Home() {
     <>
       <Navbar />
       <div className="flex flex-col justify-center items-center p-6">
-        <Outlet />
+        {loading && <Spinner/>}
+        {!loading && <Outlet />}
       </div>
       {
         <div className="w-full flex justify-center">

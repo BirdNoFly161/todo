@@ -3,7 +3,7 @@ import API from "../../../api";
 import { useSelector } from "react-redux";
 
 function Tasks() {
-  const currentUser = useSelector((state) => state.user.user);
+  const currentUser = useSelector((state) => state.user.currentUser);
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
