@@ -12,5 +12,5 @@ const TaskSchema = new Schema({
   description: String,
 });
 
-const Task = mongoose.model("Movie", TaskSchema);
+const Task = mongoose.model("Task", TaskSchema);
 export default Task;

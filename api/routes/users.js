@@ -9,7 +9,6 @@ var router = express.Router();
 router.get("/", async function get_users(req, res) {
   try {
     let users = await User.find({});
-    console.log(users);
     res.status(200).json({ users });
   } catch (err) {
     console.log("error querying database");
@@ -30,9 +29,7 @@ router.post("/register", async function register_user(req, res) {
 
 router.post("/login", async function login_user(req, res) {
   try {
-    console.log("got login request with data: ", req.body);
     let user = await User.findOne({ username: req.body.username });
-    console.log("user: ", user);
     if(!user){
       return res.status(404).json({msg: 'no such user'});
     }
@@ -77,7 +74,6 @@ router.get(
 );
 
 router.get("/token", passport.authenticate("user", { session: false }), async function (req, res) {
-  console.log("got to token request", req.cookies);
   if (req.cookies.token) {
     res.status(200).json({ token: req.cookies.token, user: req.user });
   } else {

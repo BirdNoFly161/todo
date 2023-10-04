@@ -15,6 +15,8 @@ function Navbar() {
         <StyledLink link="/" title="Home" />
         <StyledLink link="/about" title="About" />
         <StyledLink link="/users" title="Users" />
+        <StyledLink link="/tasks" title="Tasks" />
+
 
       </div>
       <div className="flex gap-2">

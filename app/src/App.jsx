@@ -4,6 +4,7 @@ import Home from "./scenes";
 import SignIn from "./scenes/signin";
 import Signup from "./scenes/signup";
 import Users from "./scenes/user";
+import Tasks from "./scenes/task";
 
 import "./App.css";
 
@@ -24,6 +25,10 @@ function App() {
         {
           path: "/users",
           element: <Users />,
+        },
+        {
+          path: "/tasks",
+          element: <Tasks />,
         },
       ],
     },
