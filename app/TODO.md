@@ -17,3 +17,6 @@ test passport some more, test if the cookie extractor or the fromBearer token is
 clean up whats being returned from the /users/token get endpoint
 
 add admin and make so only admins can see users list
+
+
+tasks page useEffect not always running, especially if the first link to ever be visited is /tasks , tho if u do /users then /tasks it works fine
