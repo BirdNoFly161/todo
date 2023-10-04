@@ -5,7 +5,6 @@ import Spinner from "../components/spinner";
 import { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { setAuthToken, setUser } from "../redux/user/userSlice";
-
 import API from "../../api";
 
 function Home() {

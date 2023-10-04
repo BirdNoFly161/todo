@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import API from "../../../api";
 import { useSelector } from "react-redux";
+import AddTask from "./addTask";
 
 function Tasks() {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -27,11 +28,12 @@ function Tasks() {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col items-center gap-4">
       <h1>Tasks</h1>
       {tasks.map((task, index) => (
         <Task key={index} title={task.title} />
       ))}
+      <AddTask/>
     </div>
   );
 }
