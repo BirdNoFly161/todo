@@ -33,6 +33,9 @@ router.post("/login", async function login_user(req, res) {
     console.log("got login request with data: ", req.body);
     let user = await User.findOne({ username: req.body.username });
     console.log("user: ", user);
+    if(!user){
+      return res.status(404).json({msg: 'no such user'});
+    }
     if (user.password != req.body.password) {
       return res.status(403).json({ msg: "password is incorrect" });
     }

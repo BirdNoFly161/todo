@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import Spinner from "../components/spinner";
 import { BiErrorCircle } from "react-icons/bi";
 import { BiCheckCircle } from "react-icons/bi";
-import api from "../../api";
+import API from "../../api";
 
 function Signup() {
   return (
@@ -52,7 +52,7 @@ function SignupForm() {
             ),
         })}
         onSubmit={async (values, { setSubmitting }) => {
-          let response = await api("/users/register", "POST", values);
+          let response = await API.post("/users/register", values);
           setSubmitting(false);
           if (response.status === 200) {
             toast.success("Succesfully created account");

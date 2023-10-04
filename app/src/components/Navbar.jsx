@@ -13,8 +13,9 @@ function Navbar() {
       <span className="text-secondary text-xl">Poor man{`'`}s todo</span>
       <div className="flex grow justify-center gap-4">
         <StyledLink link="/" title="Home" />
-
         <StyledLink link="/about" title="About" />
+        <StyledLink link="/users" title="Users" />
+
       </div>
       <div className="flex gap-2">
         {user ? (
