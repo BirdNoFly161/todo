@@ -1,26 +1,32 @@
 import { Dialog } from "@headlessui/react";
-import { useState } from "react";
 import { Formik } from "formik";
+import { useSelector } from "react-redux";
 import * as Yup from "yup";
 import Spinner from "../../components/spinner";
 import API from "../../../api";
 
-function AddTask() {
-    const [open, setOpen] = useState(true);
+function AddTask({ open, setOpen }) {
+    const currentUser = useSelector((state) => state.user.currentUser);
 
     return (
-        <Dialog as="div" className="w-screen h-96 flex justify-center" open={open} onClose={() => setOpen(true)}>
+        <Dialog
+            as="div"
+            className="fixed inset-0 flex justify-center items-center"
+            open={open}
+            onClose={() => setOpen(true)}
+        >
             <Formik
                 initialValues={{
                     title: "",
-                    endDate: "",
+                    //deadline: "",
                 }}
                 validationSchema={Yup.object({
                     title: Yup.string().required("title is required"),
                     //endDate: Yup.string().required("Password is required"),
                 })}
                 onSubmit={async (values, { setSubmitting }) => {
-                    let response = await API.post("/tasks", values);
+                    values = { ...values, people: [currentUser._id] };
+                    let response = await API.post("/tasks", { task: values });
                     response = await response.json();
                     setSubmitting(false);
                     console.log(response);
@@ -28,7 +34,7 @@ function AddTask() {
             >
                 {(formik) => (
                     <form
-                        className="w-fit flex flex-col items-center gap-1 bg-primary rounded-bl rounded-br p-4"
+                        className="w-1/3 h-1/3 flex flex-col items-center gap-1 bg-primary rounded p-4"
                         onSubmit={formik.handleSubmit}
                     >
                         <div className="flex flex-col gap-3 w-full">
@@ -43,7 +49,7 @@ function AddTask() {
                                         Title
                                     </label>
                                     <input
-                                        className="px-2 py-1 rounded-tr rounded-br"
+                                        className="px-2 py-1 grow rounded-tr rounded-br"
                                         type="text"
                                         id="title"
                                         name="title"
@@ -55,16 +61,24 @@ function AddTask() {
                             </div>
                         </div>
 
-                        <button
-                            className="flex justify-center bg-secondary hover:scale-110 hover:shadow-surround hover:shadow-accent  hover:text-accent rounded px-2 py-1"
-                            type="submit"
-                        >
-                            {formik.isSubmitting ? (
-                                <Spinner />
-                            ) : (
-                                <span>Sign in</span>
-                            )}
-                        </button>
+                        <div className="flex justify-center items-center gap-3">
+                            <button
+                                className="flex justify-center bg-secondary hover:scale-110 hover:shadow-surround hover:shadow-accent  hover:text-accent rounded px-2 py-1"
+                                type="submit"
+                            >
+                                {formik.isSubmitting ? (
+                                    <Spinner />
+                                ) : (
+                                    <span>Add task</span>
+                                )}
+                            </button>
+                            <button
+                                className="flex justify-center bg-secondary hover:scale-110 hover:shadow-surround hover:shadow-accent  hover:text-accent rounded px-2 py-1"
+                                onClick={() => setOpen(false)}
+                            >
+                                Cancel
+                            </button>
+                        </div>
                     </form>
                 )}
             </Formik>

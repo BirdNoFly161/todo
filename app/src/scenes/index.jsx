@@ -38,22 +38,6 @@ function Home() {
         {loading && <Spinner />}
         {!loading && <Outlet />}
       </div>
-      {
-        <div className="w-full flex justify-center">
-          <button
-            className="flex justify-center w-1/3 bg-secondary hover:scale-110 hover:shadow-surround hover:shadow-accent  hover:text-accent rounded px-2 py-1"
-            onClick={async () => {
-              setLoading(true);
-              let response = await API.get("/users/token");
-              response = await response.json();
-              setLoading(false);
-              console.log(response);
-            }}
-          >
-            {loading ? "Loading" : "Test the token ! "}
-          </button>
-        </div>
-      }
       <Toaster />
     </>
   );

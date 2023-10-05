@@ -20,3 +20,11 @@ add admin and make so only admins can see users list
 
 
 tasks page useEffect not always running, especially if the first link to ever be visited is /tasks , tho if u do /users then /tasks it works fine
+
+in add task dialog, make the dialog div not occupy the space occupied by navbar, because right now it preventing user from using the navbar when the dialog is open (could set its height to screen- navbar height ) (can i make navbar height global ?)
+
+always add currentUser to dependency of intial startup useEffect ? for an example when i logout now i will still see the list of loaded tasks
+alternatively can just redirect on logout
+
+
+add deadline and start date to tasks

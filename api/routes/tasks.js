@@ -38,4 +38,20 @@ router.post('/search', passport.authenticate('user', {session: false}), async fu
 
 });
 
+router.post('/',passport.authenticate('user', {session: false}), async function(req, res){
+  console.log('got task creation req with body: ', req.body.task)
+  try{
+    if(req.body.task){
+      let task = new Task(req.body.task);
+      await task.save();
+      return res.status(200).json({msg: 'created  task successfully'});
+    }
+    return res.status(300).json({msg:'bad task creation request'});
+  }
+  catch(error){
+    return res.status(500).json({msg:'server error'});
+  }
+
+});
+
 export default router;
