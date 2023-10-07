@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../redux/user/userSlice";
 import { setAuthToken } from "../redux/user/userSlice";
+import { navLinks } from "../constants";
 import API from "../../api";
 
 function Navbar() {
@@ -70,5 +71,13 @@ const StyledLink = ({ title, link }) => {
     </Link>
   );
 };
+
+function DesktopNavbar(links){
+  //TODO
+}
+
+function MobileNavbar(links){
+  //TODO
+}
 
 export default Navbar;
