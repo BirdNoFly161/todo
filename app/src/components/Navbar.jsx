@@ -107,11 +107,11 @@ function MobileNavbar({ links }) {
             <div
                 className={`${
                     toggle ? "flex" : "hidden"
-                } fixed flex-col justify-between w-1/3 h-[calc(100vh-3rem)] bg-primary`}
+                } fixed flex-col justify-between w-2/3 h-[calc(100vh-3rem)] bg-primary ${toggle? "animate-appearLeft":""}`}
             >
                 <div className="flex flex-col justify-center">
-                    {links.map((link) => (
-                        <StyledLinkMobile {...link} />
+                    {links.map((link, index) => (
+                        <StyledLinkMobile key={index} {...link} />
                     ))}
                 </div>
 
