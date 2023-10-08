@@ -1,6 +1,6 @@
-export const navLinks =
-    [
-        {title: "Home", link: "/"},
-        {title: "Tasks", link: "/tasks"},
-        {About: "About", link: "/about"},
-    ]
+export const navLinks = [
+  { title: "Home", link: "/" },
+  { title: "Tasks", link: "/tasks" },
+  { title: "Users", link: "/users" },
+  { title: "About", link: "/about" },
+];
