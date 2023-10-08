@@ -26,3 +26,6 @@ alternatively can just redirect on logout
 add deadline and start date to tasks
 
 change user logout nad info into expandable dropdown
+
+in the Navbar (use mobile version, open the sidebar and expand the screen width, the sidebar will still be visible and the top bar as well
+)
