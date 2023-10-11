@@ -29,3 +29,7 @@ change user logout nad info into expandable dropdown
 
 in the Navbar (use mobile version, open the sidebar and expand the screen width, the sidebar will still be visible and the top bar as well
 )
+
+
+
+IMPORTANT: random lines keep appearing to recreate open the navbar side bar when screen is small

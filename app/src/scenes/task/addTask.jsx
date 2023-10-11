@@ -35,26 +35,26 @@ function AddTask({ open, setOpen }) {
             >
                 {(formik) => (
                     <form
-                        className="w-2/3 h-2/3 flex flex-col justify-between items-center gap-1 bg-primary rounded p-4"
+                        className="w-2/3 flex flex-col justify-between items-center gap-1 bg-primary rounded p-4"
                         onSubmit={formik.handleSubmit}
                     >
-                        <h2 className="h-1/4 w-2/3 flex justify-center items-center text-4xl bg-secondary rounded-tl rounded-bl px-2 py-1">
+                        <h2 className="w-2/3 flex justify-center items-center text-xl sm:text-3xl bg-secondary rounded px-2 py-1">
                             Add a task
                         </h2>
-                        <div className="w-full h-full flex flex-col justify-center gap-3">
-                            <div className="flex flex-col gap-3 w-full">
+                        <div className="flex flex-col w-full justify-center gap-3">
+                            <div className="flex flex-col gap-3">
                                 <div className="flex flex-col justify-center">
                                     {" "}
                                     <div className="flex items-center">
                                         {" "}
                                         <label
-                                            className="min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
+                                            className="min-w-[5em] sm:min-w-[9em] bg-secondary rounded-tl rounded-bl px-2 py-1"
                                             htmlFor="title"
                                         >
                                             Title
                                         </label>
                                         <input
-                                            className="px-2 py-1 grow rounded-tr rounded-br"
+                                            className="px-2 py-1 w-full rounded-tr rounded-br"
                                             type="text"
                                             id="title"
                                             name="title"
@@ -65,16 +65,17 @@ function AddTask({ open, setOpen }) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex flex-col gap-3 w-full">
+
+                            <div className="flex flex-col gap-3">
                                 <div className="flex flex-col">
                                     {" "}
                                     <div className="flex items-stretch">
                                         {" "}
                                         <label
-                                            className="min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
+                                            className="min-w-[5em] sm:min-w-[9em] bg-secondary rounded-tl rounded-bl px-2 py-1"
                                             htmlFor="deadline"
                                         >
-                                            {"Due by (Optional)"}
+                                            <span>{"Due by"}</span><span className="hidden sm:inline">{" (Optional)"}</span>
                                         </label>
                                         <input
                                             className="px-2 grow rounded-tr rounded-br"
