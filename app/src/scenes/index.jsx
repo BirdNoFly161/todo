@@ -18,7 +18,6 @@ function Home() {
           setLoading(false);
           return;
         }
-        response = await response.json();
         dispatch(setAuthToken(response.token));
         dispatch(setUser(response.user));
         API.setAuthToken(response.token);

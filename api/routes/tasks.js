@@ -1,5 +1,5 @@
 import express from "express";
-import passport from 'passport';
+import passport from "passport";
 import Task from "../database/models/taskSchema.js";
 var router = express.Router();
 
@@ -23,35 +23,40 @@ router.get("/:taskId", async function get_tasks(req, res) {
   }
 });
 
-router.post('/search', passport.authenticate('user', {session: false}), async function (req, res){
-  let query = {};
-  console.log('got search: ', req.body.user)
-  if(req.body.user){
-    let user = req.body.user;
-    query.people={$in: [user._id]}
-  }
-  console.log('query: ', query)
-
-  let tasks = await Task.find(query);
-  console.log('found tasks', tasks)
-  res.status(200).json({tasks});
-
-});
-
-router.post('/',passport.authenticate('user', {session: false}), async function(req, res){
-  console.log('got task creation req with body: ', req.body.task)
-  try{
-    if(req.body.task){
-      let task = new Task(req.body.task);
-      await task.save();
-      return res.status(200).json({msg: 'created  task successfully'});
+router.post(
+  "/search",
+  passport.authenticate("user", { session: false }),
+  async function (req, res) {
+    let query = {};
+    console.log("got search: ", req.body.user);
+    if (req.body.user) {
+      let user = req.body.user;
+      query.people = { $in: [user._id] };
     }
-    return res.status(300).json({msg:'bad task creation request'});
-  }
-  catch(error){
-    return res.status(500).json({msg:'server error'});
-  }
+    console.log("query: ", query);
 
-});
+    let tasks = await Task.find(query);
+    console.log("found tasks", tasks);
+    res.status(200).json({ tasks });
+  },
+);
+
+router.post(
+  "/",
+  passport.authenticate("user", { session: false }),
+  async function (req, res) {
+    console.log("got task creation req with body: ", req.body.task);
+    try {
+      if (req.body.task) {
+        let task = new Task(req.body.task);
+        //await task.save();
+        return res.status(200).json({ msg: "created  task successfully" });
+      }
+      return res.status(300).json({ msg: "bad task creation request" });
+    } catch (error) {
+      return res.status(500).json({ msg: "server error" });
+    }
+  },
+);
 
 export default router;

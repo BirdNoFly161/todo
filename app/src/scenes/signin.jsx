@@ -34,7 +34,6 @@ function SignInForm() {
         })}
         onSubmit={async (values, { setSubmitting }) => {
           let response = await API.post("/users/login", values);
-          response = await response.json();
           dispatch(setAuthToken(response.token));
           API.setAuthToken(response.token);
           dispatch(setUser(response.user));

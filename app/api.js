@@ -47,7 +47,11 @@ class api {
           options.headers.Authorization = `Bearer ${this.token}`;
         }
         let response = await fetch(`${this.uri}${path}`, options);
-        resolve(response);
+        let responseJSON = await response.json();
+
+        // populate the parsed response with everything you need from the response sent from backend
+        responseJSON.status = response.status;
+        resolve(responseJSON);
       } catch (error) {
         reject(error);
       }

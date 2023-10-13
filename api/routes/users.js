@@ -30,8 +30,8 @@ router.post("/register", async function register_user(req, res) {
 router.post("/login", async function login_user(req, res) {
   try {
     let user = await User.findOne({ username: req.body.username });
-    if(!user){
-      return res.status(404).json({msg: 'no such user'});
+    if (!user) {
+      return res.status(404).json({ msg: "no such user" });
     }
     if (user.password != req.body.password) {
       return res.status(403).json({ msg: "password is incorrect" });
@@ -69,21 +69,29 @@ router.get(
   function (req, res) {
     console.log("got to test");
     console.log(req.user);
-    res.status(200).json({msg: 'test success'});
-  }
+    res.status(200).json({ msg: "test success" });
+  },
 );
 
-router.get("/token", passport.authenticate("user", { session: false }), async function (req, res) {
-  if (req.cookies.token) {
-    res.status(200).json({ token: req.cookies.token, user: req.user });
-  } else {
-    res.status(401).json({msg:'Invalid token'});
-  }
-});
+router.get(
+  "/token",
+  passport.authenticate("user", { session: false }),
+  async function (req, res) {
+    if (req.cookies.token) {
+      res.status(200).json({ token: req.cookies.token, user: req.user });
+    } else {
+      res.status(401).json({ msg: "Invalid token" });
+    }
+  },
+);
 
-router.post('/logout', passport.authenticate("user", {session: false}), async function(req, res){
-  res.clearCookie('token');
-  res.status(200).send('logged out');
-});
+router.post(
+  "/logout",
+  passport.authenticate("user", { session: false }),
+  async function (req, res) {
+    res.clearCookie("token");
+    res.status(200).json({ msg: "logged out" });
+  },
+);
 
 export default router;
