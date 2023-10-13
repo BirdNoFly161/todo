@@ -9,7 +9,7 @@ import API from "../../api";
 
 function SignIn() {
   return (
-    <div className="flex flex-col justify-center w-1/3">
+    <div className="flex flex-col justify-center w-2/3 sm:w-1/2">
       <h2 className="text-lg p-2 min-w-[5em] bg-secondary text-center rounded-tl rounded-tr">
         Sign in
       </h2>
@@ -52,13 +52,13 @@ function SignInForm() {
                 <div className="flex items-center">
                   {" "}
                   <label
-                    className="min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
+                    className="text-sm sm:text-lg min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
                     htmlFor="username"
                   >
                     User name
                   </label>
                   <input
-                    className="grow px-2 py-1 rounded-tr rounded-br"
+                    className="w-full text-sm sm:text-lg px-2 py-1 rounded-tr rounded-br"
                     type="text"
                     id="username"
                     name="username"
@@ -84,13 +84,13 @@ function SignInForm() {
                 <div className="flex items-center">
                   {" "}
                   <label
-                    className="min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
+                    className="text-sm sm:text-lg min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
                     htmlFor="password"
                   >
                     password
                   </label>
                   <input
-                    className="grow px-2 py-1 rounded-tr rounded-br"
+                    className="w-full text-sm sm:text-lg px-2 py-1 rounded-tr rounded-br"
                     type="password"
                     id="password"
                     name="password"

@@ -8,7 +8,7 @@ import API from "../../api";
 
 function Signup() {
   return (
-    <div className="flex flex-col justify-center w-1/3">
+    <div className="flex flex-col justify-center w-2/3 sm:w-1/2">
       <h2 className="text-lg p-2 min-w-[5em] bg-secondary text-center rounded-tl rounded-tr">
         Signup
       </h2>
@@ -39,16 +39,16 @@ function SignupForm() {
             .required("Password is required")
             .matches(
               /(?=.*[A-Z])/,
-              "Password must contain atleast one uppercase letter"
+              "Password must contain atleast one uppercase letter",
             )
             .matches(
               /(?=.*[a-z])/,
-              "Password must contain atleast one lowercase letter"
+              "Password must contain atleast one lowercase letter",
             )
             .matches(/(?=.*\d)/, "Password must contain atleast one number")
             .matches(
               /(?=.*[-_~!@#$%^&+])/,
-              "Password must contain atleast one symbol"
+              "Password must contain atleast one symbol",
             ),
         })}
         onSubmit={async (values, { setSubmitting }) => {
@@ -71,13 +71,13 @@ function SignupForm() {
                 <div className="flex items-center">
                   {" "}
                   <label
-                    className="min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
+                    className="text-sm sm:text-lg min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
                     htmlFor="username"
                   >
                     User name
                   </label>
                   <input
-                    className="grow px-2 py-1 rounded-tr rounded-br"
+                    className="w-full text-sm sm:text-lg px-2 py-1 rounded-tr rounded-br"
                     type="text"
                     id="username"
                     name="username"
@@ -107,13 +107,13 @@ function SignupForm() {
                 <div className="flex items-center">
                   {" "}
                   <label
-                    className="min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
+                    className="text-sm sm:text-lg min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
                     htmlFor="firstName"
                   >
                     First name
                   </label>
                   <input
-                    className="grow px-2 py-1 rounded-tr rounded-br"
+                    className="w-full text-sm sm:text-lg px-2 py-1 rounded-tr rounded-br"
                     type="text"
                     id="firstName"
                     name="firstName"
@@ -142,13 +142,13 @@ function SignupForm() {
                 <div className="flex items-center">
                   {" "}
                   <label
-                    className="min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
+                    className="text-sm sm:text-lg min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
                     htmlFor="lastName"
                   >
                     Last name
                   </label>
                   <input
-                    className="grow px-2 py-1 rounded-tr rounded-br"
+                    className="w-full text-sm sm:text-lg px-2 py-1 rounded-tr rounded-br"
                     type="text"
                     name="lastName"
                     id="lastName"
@@ -177,13 +177,13 @@ function SignupForm() {
                 <div className="flex items-center">
                   {" "}
                   <label
-                    className="min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
+                    className="text-sm sm:text-lg min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
                     htmlFor="email"
                   >
                     e-mail
                   </label>
                   <input
-                    className="grow px-2 py-1 rounded-tr rounded-br"
+                    className="w-full text-sm sm:text-lg px-2 py-1 rounded-tr rounded-br"
                     type="email"
                     id="email"
                     name="email"
@@ -212,13 +212,13 @@ function SignupForm() {
                 <div className="flex items-center">
                   {" "}
                   <label
-                    className="min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
+                    className="text-sm sm:text-lg min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
                     htmlFor="password"
                   >
                     password
                   </label>
                   <input
-                    className="grow px-2 py-1 rounded-tr rounded-br"
+                    className="w-full text-sm sm:text-lg px-2 py-1 rounded-tr rounded-br"
                     type="password"
                     id="password"
                     name="password"
