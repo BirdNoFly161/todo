@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { setAuthToken, setUser } from "../redux/user/userSlice";
 import API from "../../api";
 
-function Home() {
+function Root() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -42,4 +42,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Root;

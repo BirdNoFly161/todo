@@ -3,6 +3,7 @@ import API from "../../../api";
 import { formatDate } from "../../utils";
 import { useSelector } from "react-redux";
 import { BiPlusCircle, BiTrash } from "react-icons/bi";
+import Checkmark from "../../components/svg/checkmark";
 import AddTask from "./addTask";
 import Spinner from "../../components/spinner";
 
@@ -72,13 +73,13 @@ function Task({ _id, title, deadline, status, setTasks }) {
 
   return (
     <div className="flex w-full justify-between bg-primary rounded">
-      <span className="bg-secondary border-r border-r-accent rounded-tl rounded-bl px-4">
-        <input
-          className=" w-5 h-full"
-          type="checkbox"
-          checked={checked}
-          onChange={(event) => setChecked(event.target.checked)}
-        />
+      <span
+        className="bg-secondary border-r border-r-accent rounded-tl rounded-bl px-2"
+        onClick={() => {
+          setChecked(!checked);
+        }}
+      >
+        <Checkmark checked={checked} />
       </span>
       <span className="bg-red-500 border-r border-accent">
         <button
@@ -99,7 +100,9 @@ function Task({ _id, title, deadline, status, setTasks }) {
           {submittingDelete ? (
             <Spinner className={"bg-red-500 w-4 h-4"} />
           ) : (
-            <BiTrash className="bg-red-500 hover:bg-red-600 w-full h-full" />
+            <span className="bg-red-500 hover:bg-red-600 w-full h-full flex justify-center items-center">
+              <BiTrash className=" w-3/4 h-3/4" />
+            </span>
           )}
         </button>
       </span>
