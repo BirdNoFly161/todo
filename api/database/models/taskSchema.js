@@ -10,6 +10,10 @@ const TaskSchema = new Schema({
   deadline: Date,
   people: [String],
   description: String,
+  status: {
+    type: String,
+    enum: ["completed", "inProgress", "uncompleted"],
+  },
 });
 
 const Task = mongoose.model("Task", TaskSchema);

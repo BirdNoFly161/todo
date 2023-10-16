@@ -49,10 +49,31 @@ router.post(
     try {
       if (req.body.task) {
         let task = new Task(req.body.task);
-        //await task.save();
+        await task.save();
         return res.status(200).json({ msg: "created  task successfully" });
       }
       return res.status(300).json({ msg: "bad task creation request" });
+    } catch (error) {
+      return res.status(500).json({ msg: "server error" });
+    }
+  },
+);
+
+router.put(
+  "/:id",
+  passport.authenticate("user", { session: false }),
+  async function (req, res) {
+    console.log("got task update req with body: ", req.body.status);
+
+    try {
+      let task = await Task.findOne({ _id: req.params.id });
+      console.log(task);
+      task.status = req.body.status;
+      console.log(task);
+      await task.save();
+      return res
+        .status(200)
+        .json({ msg: `task updated successfully to: ${req.body.status}` });
     } catch (error) {
       return res.status(500).json({ msg: "server error" });
     }

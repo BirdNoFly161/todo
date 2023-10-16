@@ -47,10 +47,33 @@ function Tasks() {
   );
 }
 
-function Task({ title, deadline }) {
+function Task({ _id, title, deadline, status }) {
+  const [checked, setChecked] = useState(status === "completed" ? true : false);
+
+  useEffect(() => {
+    console.log("changed checked box to ", checked, "for task: ", _id, {
+      status: checked ? "completed" : "uncompleted",
+    });
+    let response = API.put(`/tasks/${_id}`, {
+      status: checked ? "completed" : "uncompleted",
+    });
+  }, [checked]);
+
   return (
     <div className="flex w-full justify-between bg-primary rounded">
-      <span className="grow text-sm lg:text-md flex justify-start bg-secondary rounded-tl rounded-bl px-2 py-1 whitespace-nowrap overflow-clip">
+      <span className="bg-secondary border-r border-r-accent rounded-tl rounded-bl px-4">
+        <input
+          className=" w-5 h-full"
+          type="checkbox"
+          checked={checked}
+          onChange={(event) => setChecked(event.target.checked)}
+        />
+      </span>
+      <span
+        className={`${
+          checked && "line-through"
+        } grow text-sm lg:text-md flex justify-start bg-secondary px-2 py-1 whitespace-nowrap overflow-clip`}
+      >
         {title}
       </span>
       <span className="hidden sm:flex">

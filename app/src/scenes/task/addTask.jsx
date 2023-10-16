@@ -26,7 +26,6 @@ function AddTask({ open, setOpen }) {
         })}
         onSubmit={async (values, { setSubmitting }) => {
           values = { ...values, people: [currentUser._id] };
-          console.log("trying to add task with values: ", values);
           let response = await API.post("/tasks", { task: values });
           setSubmitting(false);
           console.log(response);
