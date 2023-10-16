@@ -80,4 +80,18 @@ router.put(
   },
 );
 
+router.delete(
+  "/:id",
+  passport.authenticate("user", { session: false }),
+  async function (req, res) {
+    console.log("got task delete req");
+
+    try {
+      await Task.deleteOne({ _id: req.params.id });
+      return res.status(200).json({ msg: "task deleted successfully" });
+    } catch (error) {
+      return res.status(500).json({ msg: "server error" });
+    }
+  },
+);
 export default router;

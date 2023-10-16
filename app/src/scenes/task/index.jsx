@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import API from "../../../api";
 import { formatDate } from "../../utils";
 import { useSelector } from "react-redux";
-import { BiPlusCircle } from "react-icons/bi";
+import { BiPlusCircle, BiTrash } from "react-icons/bi";
 import AddTask from "./addTask";
+import Spinner from "../../components/spinner";
 
 function Tasks() {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -33,7 +34,7 @@ function Tasks() {
     <div className="bg-accent w-full flex flex-col items-center gap-4 border border-primary rounded p-5">
       <span className="bg-secondary px-4 py-1 rounded">Tasks</span>
       {tasks.map((task, index) => (
-        <Task key={index} {...task} />
+        <Task key={index} {...task} setTasks={setTasks} />
       ))}
       <button
         className="text-lg flex justify-center items-center gap-3 p-2 min-w-[5em] bg-secondary rounded hover:scale-110 hover:shadow-surround hover:shadow-accent  hover:text-accent"
@@ -51,17 +52,22 @@ function Tasks() {
   );
 }
 
-function Task({ _id, title, deadline, status }) {
+function Task({ _id, title, deadline, status, setTasks }) {
+  const currentUser = useSelector((state) => state.user.currentUser);
   const [checked, setChecked] = useState(status === "completed" ? true : false);
+  const [submittingDelete, setSubmittingDelete] = useState(false);
 
   useEffect(() => {
-    console.log("changed checked box to ", checked, "for task: ", _id, {
-      status: checked ? "completed" : "uncompleted",
-    });
-    // eslint-disable-next-line no-unused-vars
-    const response = API.put(`/tasks/${_id}`, {
-      status: checked ? "completed" : "uncompleted",
-    });
+    const updateTaskStatus = async () => {
+      console.log("changed checked box to ", checked, "for task: ", _id, {
+        status: checked ? "completed" : "uncompleted",
+      });
+      // eslint-disable-next-line no-unused-vars
+      const response = await API.put(`/tasks/${_id}`, {
+        status: checked ? "completed" : "uncompleted",
+      });
+    };
+    updateTaskStatus();
   }, [checked]);
 
   return (
@@ -74,6 +80,30 @@ function Task({ _id, title, deadline, status }) {
           onChange={(event) => setChecked(event.target.checked)}
         />
       </span>
+      <span className="bg-red-500 border-r border-accent">
+        <button
+          className="flex justify-center items-center w-7 h-full"
+          onClick={async () => {
+            setSubmittingDelete(true);
+            const response = await API.delete(`/tasks/${_id}`);
+            if (response.status === 200) {
+              let response = await API.post("/tasks/search", {
+                user: currentUser,
+              });
+              setTasks(response.tasks);
+              setSubmittingDelete(false);
+            }
+            setSubmittingDelete(false);
+          }}
+        >
+          {submittingDelete ? (
+            <Spinner className={"bg-red-500 w-4 h-4"} />
+          ) : (
+            <BiTrash className="bg-red-500 hover:bg-red-600 w-full h-full" />
+          )}
+        </button>
+      </span>
+
       <span
         className={`${
           checked && "line-through"

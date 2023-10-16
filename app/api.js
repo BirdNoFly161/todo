@@ -92,6 +92,27 @@ class api {
       }
     });
   }
+
+  delete(path) {
+    // eslint-disable-next-line no-async-promise-executor
+    return new Promise(async (resolve, reject) => {
+      try {
+        let options = { ...this.options };
+        options.method = "DELETE";
+        if (this.token) {
+          options.headers.Authorization = `Bearer ${this.token}`;
+        }
+        let response = await fetch(`${this.uri}${path}`, options);
+        let responseJSON = await response.json();
+
+        // populate the parsed response with everything you need from the response sent from backend
+        responseJSON.status = response.status;
+        resolve(responseJSON);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
 }
 
 const API = new api();
