@@ -1,4 +1,5 @@
 import { Formik } from "formik";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import Spinner from "../components/spinner";
 import { BiErrorCircle } from "react-icons/bi";
@@ -20,6 +21,7 @@ function SignIn() {
 
 function SignInForm() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -34,11 +36,14 @@ function SignInForm() {
         })}
         onSubmit={async (values, { setSubmitting }) => {
           let response = await API.post("/users/login", values);
-          dispatch(setAuthToken(response.token));
-          API.setAuthToken(response.token);
-          dispatch(setUser(response.user));
-          setSubmitting(false);
-          console.log(response);
+          if (response.status === 200) {
+            dispatch(setAuthToken(response.token));
+            API.setAuthToken(response.token);
+            dispatch(setUser(response.user));
+            setSubmitting(false);
+            console.log(response);
+            navigate("/tasks");
+          }
         }}
       >
         {(formik) => (
