@@ -42,7 +42,11 @@ function Tasks() {
         <span>New task</span>
         <BiPlusCircle />
       </button>
-      <AddTask open={addTaskOpen} setOpen={setAddTaskOpen} />
+      <AddTask
+        open={addTaskOpen}
+        setOpen={setAddTaskOpen}
+        setTasks={setTasks}
+      />
     </div>
   );
 }
@@ -54,7 +58,8 @@ function Task({ _id, title, deadline, status }) {
     console.log("changed checked box to ", checked, "for task: ", _id, {
       status: checked ? "completed" : "uncompleted",
     });
-    let response = API.put(`/tasks/${_id}`, {
+    // eslint-disable-next-line no-unused-vars
+    const response = API.put(`/tasks/${_id}`, {
       status: checked ? "completed" : "uncompleted",
     });
   }, [checked]);

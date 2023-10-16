@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import Spinner from "../../components/spinner";
 import API from "../../../api";
 
-function AddTask({ open, setOpen }) {
+function AddTask({ open, setOpen, setTasks }) {
   const currentUser = useSelector((state) => state.user.currentUser);
 
   return (
@@ -28,6 +28,13 @@ function AddTask({ open, setOpen }) {
           values = { ...values, people: [currentUser._id] };
           let response = await API.post("/tasks", { task: values });
           setSubmitting(false);
+          if (response.status === 200) {
+            let response = await API.post("/tasks/search", {
+              user: currentUser,
+            });
+            setTasks(response.tasks);
+            setOpen(false);
+          }
           console.log(response);
         }}
       >
