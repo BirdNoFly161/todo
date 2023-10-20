@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import "./checkmark.css";
 function Checkmark({ checked, className }) {
   const [length, setLength] = useState(null);
   const checkMarkRef = useRef(null);
@@ -20,6 +19,7 @@ function Checkmark({ checked, className }) {
         className="checkmark"
         strokeDasharray={length}
         strokeDashoffset={checked ? 0 : length}
+        style={{ transition: "stroke-dashoffset 0.4s ease-in-out" }}
         id="checkmark"
         d="M7 147L138 246L346 7"
         stroke="black"
