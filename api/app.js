@@ -27,6 +27,7 @@ app.use(
       "https://todo-app-sharpoussama-gmailcom.vercel.app",
       "http://todo-app-sharpoussama-gmailcom.vercel.app",
     ],
+    preflightContinue: true,
   }),
 );
 app.use(logger("dev"));
