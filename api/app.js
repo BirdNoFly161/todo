@@ -20,7 +20,11 @@ var app = express();
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:5173", "https://oussamabenmansour.site"],
+    origin: [
+      "http://localhost:5173",
+      "https://oussamabenmansour.site",
+      "https://todo-app-sharpoussama-gmailcom.vercel.app",
+    ],
   }),
 );
 app.use(logger("dev"));
