@@ -23,7 +23,9 @@ app.use(
     origin: [
       "http://localhost:5173",
       "https://oussamabenmansour.site",
+      "http://oussamabenmansour.site",
       "https://todo-app-sharpoussama-gmailcom.vercel.app",
+      "http://todo-app-sharpoussama-gmailcom.vercel.app",
     ],
   }),
 );
