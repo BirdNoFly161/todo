@@ -1,7 +1,6 @@
 class api {
   constructor() {
-    this.uri =
-      "https://vercel.com/sharpoussama-gmailcom/todo-app-vsfq-backend/HZckKHK141yRc1v6zu4Xge9FnCov";
+    this.uri = "https://todo-app-vsfq-backend.vercel.app";
     this.options = {
       credentials: "include",
       headers: {
