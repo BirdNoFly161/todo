@@ -2,6 +2,7 @@ class api {
   constructor() {
     this.uri = "https://todo-app-vsfq-backend.vercel.app";
     this.options = {
+      credentials: "include",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
