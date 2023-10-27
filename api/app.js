@@ -16,7 +16,7 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 var app = express();
-
+// to prevent empty commit preventor
 app.use(
   cors({
     credentials: true,
