@@ -12,8 +12,15 @@
       "dest": "./bin/www.js",
       "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
       "headers": {
-        "Access-Control-Allow-Origin": "*"
+        "Access-Control-Allow-Origin": [
+          "http://localhost:5173",
+          "https://oussamabenmansour.site",
+          "http://oussamabenmansour.site",
+          "https://todo-app-sharpoussama-gmailcom.vercel.app",
+          "http://todo-app-sharpoussama-gmailcom.vercel.app"
+        ]
       }
     }
-  ]
+  ],
+  "rewrites": [{ "source": "/(.*)", "destination": "./bin/www.js" }]
 }
