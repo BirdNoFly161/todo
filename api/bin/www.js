@@ -99,4 +99,4 @@ function onListening() {
   console.log("server listening");
 }
 
-export default server;
+export default app;
