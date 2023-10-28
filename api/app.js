@@ -42,4 +42,5 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/tasks", tasksRouter);
 
+console.log("initiated app -BIRD");
 export default app;
