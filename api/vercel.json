@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "./bin/www.js",
+      "src": "./index.js.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "./bin/www.js",
+      "dest": "./index.js.js",
       "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
       "headers": {
         "Access-Control-Allow-Origin": "https://oussamabenmansour.site",
