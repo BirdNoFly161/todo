@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-import app from "../app.js";
+import app from "./app.js";
 import Debug from "debug";
 import http from "http";
 import mongoose from "mongoose";
@@ -27,7 +27,7 @@ var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-import { uri } from "../database/config.js";
+import { uri } from "./database/config.js";
 mongoose
   .connect(uri, {
     useNewUrlParser: true,
