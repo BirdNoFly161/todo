@@ -4,19 +4,19 @@
  * Module dependencies.
  */
 
-import app from '../app.js';
-import Debug from 'debug';
-import http from 'http'
-import mongoose from 'mongoose';
+import app from "../app.js";
+import Debug from "debug";
+import http from "http";
+import mongoose from "mongoose";
 
-var debug = Debug('server:server');
+var debug = Debug("server:server");
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3001');
-app.set('port', port);  
+var port = normalizePort(process.env.PORT || "3001");
+app.set("port", port);
 
 /**
  * Create HTTP server.
@@ -27,21 +27,20 @@ var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-import {uri} from '../database/config.js'
+import { uri } from "../database/config.js";
 mongoose
   .connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log('connected to database');
+    console.log("connected to database");
     server.listen(port);
   })
   .catch((error) => console.log(`${error} did not connect`));
 
-
-server.on('error', onError);
-server.on('listening', onListening);
+server.on("error", onError);
+server.on("listening", onListening);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -68,22 +67,20 @@ function normalizePort(val) {
  */
 
 function onError(error) {
-  if (error.syscall !== 'listen') {
+  if (error.syscall !== "listen") {
     throw error;
   }
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  var bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+    case "EACCES":
+      console.error(bind + " requires elevated privileges");
       process.exit(1);
       break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+    case "EADDRINUSE":
+      console.error(bind + " is already in use");
       process.exit(1);
       break;
     default:
@@ -97,9 +94,9 @@ function onError(error) {
 
 function onListening() {
   var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-  console.log('server listening');
+  var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+  debug("Listening on " + bind);
+  console.log("server listening");
 }
+
+export default server;
