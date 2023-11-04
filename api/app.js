@@ -16,8 +16,18 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 var app = express();
-
-app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
+// to prevent empty commit preventor1
+app.use(
+  cors({
+    credentials: true,
+    origin: [
+      "http://localhost:5173",
+      "https://oussamabenmansour.site",
+      "https://todo-app-sharpoussama-gmailcom.vercel.app",
+    ],
+    preflightContinue: true,
+  }),
+);
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -30,4 +40,5 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/tasks", tasksRouter);
 
+console.log("initiated app -BIRD");
 export default app;
