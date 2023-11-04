@@ -38,7 +38,7 @@ router.post("/login", async function login_user(req, res) {
     }
     console.log("user authenticated correctly");
     let token = jwt.sign({ _id: user._id }, secret);
-    res.cookie("token", token, { sameSite: "none" });
+    res.cookie("token", token, { sameSite: "none", secure: true });
     res.status(200).json({ token, user, msg: "user created successfully" });
   } catch (error) {
     console.log("couldnt login user, error: ", error);
