@@ -1,6 +1,8 @@
+import { apiURL } from "./configs/environement";
+
 class api {
   constructor() {
-    this.uri = "https://todo-app-vsfq-backend.vercel.app";
+    this.uri = apiURL;
     this.options = {
       credentials: "include",
       mode: "cors",
