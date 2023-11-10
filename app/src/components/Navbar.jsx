@@ -97,7 +97,7 @@ function MobileNavbar({ links }) {
       <div
         className={`${
           toggle ? "flex" : "hidden"
-        } fixed flex-col justify-between w-2/3 h-[calc(100vh-3rem)] bg-primary ${
+        } fixed flex-col justify-between w-2/3 h-[calc(100%-3rem)] bg-primary ${
           toggle ? "animate-appearLeft" : ""
         }`}
       >
