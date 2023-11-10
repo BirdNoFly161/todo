@@ -13,18 +13,15 @@ import tasksRouter from "./routes/tasks.js";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
+import { clientURLS } from "./configs/environement.js";
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 var app = express();
-// to prevent empty commit preventor1
 app.use(
   cors({
     credentials: true,
-    origin: [
-      "http://localhost:5173",
-      "https://oussamabenmansour.site",
-      "https://todo-app-sharpoussama-gmailcom.vercel.app",
-    ],
+    origin: clientURLS,
     preflightContinue: true,
   }),
 );

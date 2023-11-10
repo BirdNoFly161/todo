@@ -5,9 +5,19 @@ environement variables willb be populated by the hosting environment or will be 
 */
 /****************************************************/
 import dotenv from "dotenv";
+let clientURLS = [];
+const environment = process.env.Environment;
 
-if (process.env.Environment != "production") {
+if (environment != "production") {
   dotenv.config();
+  clientURLS = ["http://localhost:5173"];
+} else {
+  clientURLS = [
+    "https://oussamabenmansour.site",
+    "https://todo-app-sharpoussama-gmailcom.vercel.app",
+  ];
 }
 
-export const secret = process.env.secret || "what is a secret bruh";
+const secret = process.env.secret || "what is a secret bruh";
+
+export { secret, environment, clientURLS };
