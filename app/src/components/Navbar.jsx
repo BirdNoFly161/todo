@@ -103,7 +103,7 @@ function MobileNavbar({ links }) {
       >
         <div className="flex flex-col justify-center">
           {links.map((link, index) => (
-            <StyledLinkMobile key={index} {...link} />
+            <StyledLinkMobile key={index} {...link} setToggle={setToggle} />
           ))}
         </div>
 
@@ -122,6 +122,7 @@ function MobileNavbar({ links }) {
                     dispatch(setUser(null));
                     API.setAuthToken(null);
                     console.log(response);
+                    setToggle(false);
                   }}
                 >
                   Logout
@@ -130,8 +131,16 @@ function MobileNavbar({ links }) {
             ) : (
               <>
                 {" "}
-                <StyledLink title={"Sign up"} link="/signup"></StyledLink>
-                <StyledLink title={"Login"} link="/login"></StyledLink>
+                <StyledLinkMobile
+                  title={"Sign up"}
+                  link="/signup"
+                  setToggle={setToggle}
+                ></StyledLinkMobile>
+                <StyledLinkMobile
+                  title={"Login"}
+                  link="/login"
+                  setToggle={setToggle}
+                ></StyledLinkMobile>
               </>
             )}
           </div>
@@ -152,11 +161,12 @@ const StyledLink = ({ title, link }) => {
   );
 };
 
-const StyledLinkMobile = ({ title, link }) => {
+const StyledLinkMobile = ({ title, link, setToggle }) => {
   return (
     <Link
-      className="sm:text-md lg:text-lg xl:text-xl flex flex-col justify-center p-2 w-full border-b border-accent bg-secondary text-center hover:scale-110 hover:shadow-surround hover:shadow-accent  hover:text-accent"
+      className="sm:text-md lg:text-lg xl:text-xl flex flex-col justify-center p-2 min-w-[5em]w-full border-b border-accent bg-secondary text-center hover:scale-110 hover:shadow-surround hover:shadow-accent  hover:text-accent"
       to={link}
+      onClick={() => setToggle(false)}
     >
       <span>{title}</span>
     </Link>
