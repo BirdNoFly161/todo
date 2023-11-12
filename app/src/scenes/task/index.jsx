@@ -97,13 +97,15 @@ function Task({ _id, title, deadline, status, setTasks }) {
             setSubmittingDelete(false);
           }}
         >
-          {submittingDelete ? (
-            <Spinner className={"bg-red-500 w-4 h-4"} />
-          ) : (
-            <span className="bg-red-500 hover:bg-red-600 w-full h-full flex justify-center items-center">
-              <BiTrash className=" w-3/4 h-3/4" />
-            </span>
-          )}
+          <span className="w-7 h-7">
+            {submittingDelete ? (
+              <Spinner className={"bg-red-500 w-full h-full"} />
+            ) : (
+              <span className="bg-red-500 hover:bg-red-600 w-full h-full flex justify-center items-center">
+                <BiTrash className=" w-3/4 h-3/4" />
+              </span>
+            )}
+          </span>
         </button>
       </span>
 
