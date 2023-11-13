@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import API from "../../../api";
 import { formatDate } from "../../utils";
 import { useSelector } from "react-redux";
@@ -127,7 +128,9 @@ function Task({ _id, title, deadline, status, setTasks }) {
         )}
       </span>
       <span className="flex justify-center min-w-fit items-center bg-secondary px-2 rounded-tr rounded-br border-l border-accent">
-        More details
+        <Link to={`/tasks/${_id}`}>
+          <span> More details</span>
+        </Link>
       </span>
     </div>
   );

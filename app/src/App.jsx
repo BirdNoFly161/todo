@@ -6,6 +6,8 @@ import SignIn from "./scenes/signin";
 import Signup from "./scenes/signup";
 import Users from "./scenes/user";
 import Tasks from "./scenes/task";
+import Task from "./scenes/task/task";
+import { loader as taskLoader } from "./scenes/task/task";
 
 import "./App.css";
 
@@ -34,6 +36,11 @@ function App() {
         {
           path: "/tasks",
           element: <Tasks />,
+        },
+        {
+          path: "/tasks/:taskId",
+          element: <Task />,
+          loader: taskLoader,
         },
       ],
     },

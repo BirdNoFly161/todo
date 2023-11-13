@@ -1,9 +1,4 @@
-export const navLinks = [
-  { title: "Home", link: "/" },
-  { title: "Tasks", link: "/tasks" },
-  { title: "Users", link: "/users" },
-  { title: "About", link: "/about" },
-];
+export const navLinks = [{ title: "Tasks", link: "/tasks" }];
 
 export const months = [
   "Jan",

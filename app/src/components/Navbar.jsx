@@ -35,7 +35,9 @@ function DesktopNavbar({ links }) {
   return (
     <div className="sm:flex hidden w-[calc(100vw - .5rem)] bg-primary h-12 justify-between p-2">
       <span className="flex items-center text-secondary sm:text-md lg:text-xl">
-        Poor man{`'`}s todo
+        <Link to={"/"}>
+          <span>{"Poor man's todo"}</span>
+        </Link>
       </span>
       <div className="flex grow justify-center gap-3">
         {links.map((link, index) => (
@@ -91,7 +93,9 @@ function MobileNavbar({ links }) {
           )}
         </button>
         <span className="flex justify-center items-center grow text-secondary text-xl">
-          Poor man{`'`}s todo
+          <Link to={"/"}>
+            <span>{"Poor man's todo"}</span>
+          </Link>
         </span>
       </div>
       <div
