@@ -173,7 +173,7 @@ const StyledLink = ({ title, link }) => {
 const StyledLinkMobile = ({ title, link, setToggle }) => {
   return (
     <Link
-      className="sm:text-md lg:text-lg xl:text-xl flex flex-col justify-center p-2 min-w-[5em]w-full border-b border-secondary bg-accent text-center hover:scale-110 hover:text-secondary transition-all"
+      className="sm:text-md lg:text-lg xl:text-xl flex flex-col justify-center py-4 px-2 min-w-[5em]w-full bg-accent text-center hover:scale-110 hover:text-secondary transition-all"
       to={link}
       onClick={() => setToggle(false)}
     >
