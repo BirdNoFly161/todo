@@ -93,4 +93,21 @@ router.post(
   },
 );
 
+router.post(
+  "/search",
+  passport.authenticate("user", { session: false }),
+  async function (req, res) {
+    let query = {};
+
+    if (req.body.keyword) {
+      query.username = { $regex: req.body.keyword, $options: "i" };
+    }
+    console.log("query: ", query);
+
+    let users = await User.find(query);
+    console.log("found users", users);
+    res.status(200).json({ users });
+  },
+);
+
 export default router;

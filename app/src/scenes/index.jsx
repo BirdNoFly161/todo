@@ -33,7 +33,7 @@ function Root() {
   return (
     <>
       <Navbar />
-      <div className="flex flex-col justify-center items-center p-6">
+      <div className="flex flex-col justify-center items-center p-6 bg-background h-[calc(100vh-3rem)]">
         {loading && <Spinner />}
         {!loading && <Outlet />}
       </div>

@@ -8,7 +8,7 @@ const TaskSchema = new Schema({
   type: String,
   started: Date,
   deadline: Date,
-  people: [String],
+  people: [{ type: Schema.Types.ObjectId, ref: "User" }],
   description: String,
   status: {
     type: String,

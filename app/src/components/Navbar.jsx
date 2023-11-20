@@ -5,6 +5,7 @@ import { setAuthToken } from "../redux/user/userSlice";
 import { navLinks } from "../constants";
 import { BiMenu } from "react-icons/bi";
 import { BiChevronDown } from "react-icons/bi";
+import { FaUserCircle } from "react-icons/fa";
 import API from "../../api";
 import { useState } from "react";
 
@@ -34,9 +35,11 @@ function DesktopNavbar({ links }) {
   const user = useSelector((state) => state.user.currentUser);
   return (
     <div className="sm:flex hidden w-[calc(100vw - .5rem)] bg-primary h-12 justify-between p-2">
-      <span className="flex items-center text-secondary sm:text-md lg:text-xl">
+      <span className="flex items-center sm:text-md lg:text-xl">
         <Link to={"/"}>
-          <span>{"Poor man's todo"}</span>
+          <span className="font-medium text-white drop-shadow-2xl hover:text-accent transition-all">
+            {"Poor man's todo"}
+          </span>
         </Link>
       </span>
       <div className="flex grow justify-center gap-3">
@@ -44,14 +47,14 @@ function DesktopNavbar({ links }) {
           <StyledLink key={index} link={link.link} title={link.title} />
         ))}
       </div>
-      <div className="flex gap-2">
+      <div className="flex items-center justify-center gap-2">
         {user ? (
           <>
-            <span className="text-lg flex flex-col justify-center p-2 min-w-[5em] bg-secondary text-center rounded">
-              {user.username}
+            <span className="text-lg flex flex-col justify-center bg-accent text-center w-fit h-fit rounded-full">
+              <FaUserCircle className="w-10 h-10" />
             </span>
             <button
-              className="sm:text-md lg:text-lg flex flex-col justify-center p-2 min-w-[5em] bg-secondary text-center rounded hover:scale-110 hover:shadow-surround hover:shadow-accent  hover:text-accent"
+              className="sm:text-md lg:text-lg flex flex-col justify-center items-center p-2 min-w-[5em] bg-accent text-center rounded hover:scale-110 hover:text-secondary transition-all"
               onClick={async () => {
                 let response = await API.post("/users/logout", null);
                 dispatch(setAuthToken(null));
@@ -94,7 +97,9 @@ function MobileNavbar({ links }) {
         </button>
         <span className="flex justify-center items-center grow text-secondary text-xl">
           <Link to={"/"}>
-            <span>{"Poor man's todo"}</span>
+            <span className="text-white font-normal hover:text-accent transition-all">
+              {"Poor man's todo"}
+            </span>
           </Link>
         </span>
       </div>
@@ -115,11 +120,11 @@ function MobileNavbar({ links }) {
           <div className="flex gap-2">
             {user ? (
               <>
-                <span className="text-lg flex flex-col justify-center p-2 min-w-[5em] bg-secondary text-center rounded">
+                <span className="text-lg flex flex-col justify-center p-2 min-w-[5em] bg-accent text-center rounded-full transition-all">
                   {user.username}
                 </span>
                 <button
-                  className="sm:text-md lg:text-lg flex flex-col justify-center p-2 min-w-[5em] bg-secondary text-center rounded hover:scale-110 hover:shadow-surround hover:shadow-accent  hover:text-accent"
+                  className="sm:text-md lg:text-lg flex flex-col justify-center items-center p-2 min-w-[5em] bg-accent text-center rounded hover:scale-110 hover:text-secondary transition-all"
                   onClick={async () => {
                     let response = await API.post("/users/logout", null);
                     dispatch(setAuthToken(null));
@@ -157,7 +162,7 @@ function MobileNavbar({ links }) {
 const StyledLink = ({ title, link }) => {
   return (
     <Link
-      className="sm:text-md lg:text-lg xl:text-xl flex flex-col justify-center p-2 min-w-[5em] bg-secondary text-center rounded hover:scale-110 hover:shadow-surround hover:shadow-accent  hover:text-accent"
+      className="sm:text-md lg:text-lg xl:text-xl flex flex-col justify-center p-2 min-w-[5em] bg-accent text-center rounded hover:scale-110 hover:text-secondary transition-all"
       to={link}
     >
       <span>{title}</span>
@@ -168,7 +173,7 @@ const StyledLink = ({ title, link }) => {
 const StyledLinkMobile = ({ title, link, setToggle }) => {
   return (
     <Link
-      className="sm:text-md lg:text-lg xl:text-xl flex flex-col justify-center p-2 min-w-[5em]w-full border-b border-accent bg-secondary text-center hover:scale-110 hover:shadow-surround hover:shadow-accent  hover:text-accent"
+      className="sm:text-md lg:text-lg xl:text-xl flex flex-col justify-center p-2 min-w-[5em]w-full border-b border-secondary bg-accent text-center hover:scale-110 hover:text-secondary transition-all"
       to={link}
       onClick={() => setToggle(false)}
     >
