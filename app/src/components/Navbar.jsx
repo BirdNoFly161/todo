@@ -54,7 +54,7 @@ function DesktopNavbar({ links }) {
               <FaUserCircle className="w-10 h-10" />
             </span>
             <button
-              className="sm:text-md lg:text-lg flex flex-col justify-center items-center p-2 min-w-[5em] bg-accent text-center rounded hover:scale-110 hover:text-secondary transition-all"
+              className="sm:text-md lg:text-lg flex flex-col justify-center items-center p-2 min-w-[5em] bg-accent text-center rounded hover:scale-110 hover:text-white transition-all"
               onClick={async () => {
                 let response = await API.post("/users/logout", null);
                 dispatch(setAuthToken(null));
@@ -95,7 +95,7 @@ function MobileNavbar({ links }) {
             <BiMenu className="h-10 w-10" />
           )}
         </button>
-        <span className="flex justify-center items-center grow text-secondary text-xl">
+        <span className="flex justify-center items-center grow  text-xl">
           <Link to={"/"}>
             <span className="text-white font-normal hover:text-accent transition-all">
               {"Poor man's todo"}
@@ -162,7 +162,7 @@ function MobileNavbar({ links }) {
 const StyledLink = ({ title, link }) => {
   return (
     <Link
-      className="sm:text-md lg:text-lg xl:text-xl flex flex-col justify-center p-2 min-w-[5em] bg-accent text-center rounded hover:scale-110 hover:text-secondary transition-all"
+      className="sm:text-md lg:text-lg xl:text-xl flex flex-col justify-center p-2 min-w-[5em] bg-accent text-center rounded hover:scale-110 hover:text-white transition-all"
       to={link}
     >
       <span>{title}</span>
@@ -173,7 +173,7 @@ const StyledLink = ({ title, link }) => {
 const StyledLinkMobile = ({ title, link, setToggle }) => {
   return (
     <Link
-      className="sm:text-md lg:text-lg xl:text-xl flex flex-col justify-center py-4 px-2 min-w-[5em]w-full bg-accent text-center hover:scale-110 hover:text-secondary transition-all"
+      className="sm:text-md lg:text-lg xl:text-xl flex flex-col justify-center py-4 px-2 min-w-[5em]w-full bg-accent text-center hover:scale-110 hover:text-white transition-all"
       to={link}
       onClick={() => setToggle(false)}
     >
