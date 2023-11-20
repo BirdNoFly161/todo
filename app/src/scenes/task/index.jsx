@@ -34,27 +34,34 @@ function Tasks() {
 
   return (
     <div className="bg-background w-full flex flex-col items-center gap-8 border border-border rounded p-5">
-      <span className="self-start font-bold text-2xl bg-background border-border py-1 rounded">
-        {" "}
-        My tasks
-      </span>
-      <div className="w-full flex flex-col gap-2">
-        {tasks.map((task, index) => (
-          <Task key={index} {...task} setTasks={setTasks} />
-        ))}
-      </div>
-      <button
-        className="text-lg flex justify-center items-center gap-3 p-2 min-w-[5em] bg-primary border border-border rounded hover:scale-110 transition-all"
-        onClick={() => setAddTaskOpen(true)}
-      >
-        <span>New task</span>
-        <BiPlusCircle />
-      </button>
-      <AddTask
-        open={addTaskOpen}
-        setOpen={setAddTaskOpen}
-        setTasks={setTasks}
-      />
+      {!currentUser ? (
+        <span>You need to login to view your tasks</span>
+      ) : (
+        <>
+          {" "}
+          <span className="self-start font-bold text-2xl bg-background border-border py-1 rounded">
+            {" "}
+            My tasks
+          </span>
+          <div className="w-full flex flex-col gap-2">
+            {tasks.map((task, index) => (
+              <Task key={index} {...task} setTasks={setTasks} />
+            ))}
+          </div>
+          <button
+            className="text-lg flex justify-center items-center gap-3 p-2 min-w-[5em] bg-primary border border-border rounded hover:scale-110 transition-all"
+            onClick={() => setAddTaskOpen(true)}
+          >
+            <span>New task</span>
+            <BiPlusCircle />
+          </button>
+          <AddTask
+            open={addTaskOpen}
+            setOpen={setAddTaskOpen}
+            setTasks={setTasks}
+          />
+        </>
+      )}
     </div>
   );
 }
