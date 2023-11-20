@@ -15,7 +15,9 @@ router.get("/", async function get_task(req, res) {
 
 router.get("/:taskId", async function get_tasks(req, res) {
   try {
-    let task = await Task.findOne({ _id: req.params.taskId });
+    let task = await Task.findOne({ _id: req.params.taskId }).populate(
+      "people",
+    );
     res.status(200).json({ task });
   } catch (err) {
     console.log("error querying database");
@@ -63,17 +65,27 @@ router.put(
   "/:id",
   passport.authenticate("user", { session: false }),
   async function (req, res) {
-    console.log("got task update req with body: ", req.body.status);
+    console.log("got task update req with body: ", req.body);
 
     try {
       let task = await Task.findOne({ _id: req.params.id });
       console.log(task);
-      task.status = req.body.status;
+      if (req.body.status) {
+        task.status = req.body.status;
+      }
+      if (req.body.people) {
+        task.people = req.body.people;
+      }
       console.log(task);
       await task.save();
+
+      task = await Task.findOne({ _id: task._id }).populate("people");
       return res
         .status(200)
-        .json({ msg: `task updated successfully to: ${req.body.status}` });
+        .json({
+          msg: `task updated successfully to: ${req.body.status}`,
+          task,
+        });
     } catch (error) {
       return res.status(500).json({ msg: "server error" });
     }

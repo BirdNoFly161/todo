@@ -9,7 +9,7 @@ import API from "../../api";
 function Signup() {
   return (
     <div className="flex flex-col justify-center w-2/3 sm:w-1/2">
-      <h2 className="text-lg p-2 min-w-[5em] bg-secondary text-center rounded-tl rounded-tr">
+      <h2 className="text-lg p-2 min-w-[5em] bg-accent text-center rounded-tl rounded-tr">
         Signup
       </h2>
       <SignupForm />
@@ -71,7 +71,7 @@ function SignupForm() {
                 <div className="flex items-center">
                   {" "}
                   <label
-                    className="text-sm sm:text-lg min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
+                    className="text-sm sm:text-lg min-w-[6em] bg-accent rounded-tl rounded-bl px-2 py-1"
                     htmlFor="username"
                   >
                     User name
@@ -107,7 +107,7 @@ function SignupForm() {
                 <div className="flex items-center">
                   {" "}
                   <label
-                    className="text-sm sm:text-lg min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
+                    className="text-sm sm:text-lg min-w-[6em] bg-accent rounded-tl rounded-bl px-2 py-1"
                     htmlFor="firstName"
                   >
                     First name
@@ -142,7 +142,7 @@ function SignupForm() {
                 <div className="flex items-center">
                   {" "}
                   <label
-                    className="text-sm sm:text-lg min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
+                    className="text-sm sm:text-lg min-w-[6em] bg-accent rounded-tl rounded-bl px-2 py-1"
                     htmlFor="lastName"
                   >
                     Last name
@@ -177,7 +177,7 @@ function SignupForm() {
                 <div className="flex items-center">
                   {" "}
                   <label
-                    className="text-sm sm:text-lg min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
+                    className="text-sm sm:text-lg min-w-[6em] bg-accent rounded-tl rounded-bl px-2 py-1"
                     htmlFor="email"
                   >
                     e-mail
@@ -212,7 +212,7 @@ function SignupForm() {
                 <div className="flex items-center">
                   {" "}
                   <label
-                    className="text-sm sm:text-lg min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
+                    className="text-sm sm:text-lg min-w-[6em] bg-accent rounded-tl rounded-bl px-2 py-1"
                     htmlFor="password"
                   >
                     password
@@ -245,7 +245,7 @@ function SignupForm() {
             </div>
 
             <button
-              className="flex justify-center w-1/3 bg-secondary hover:scale-110 hover:shadow-surround hover:shadow-accent  hover:text-accent rounded px-2 py-1"
+              className="flex justify-center w-1/3 bg-accent bg-opacity-70 hover:scale-110 hover:text-white transition-all rounded px-2 py-1"
               type="submit"
             >
               {formik.isSubmitting ? <Spinner /> : <span>Sign up</span>}

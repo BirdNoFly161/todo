@@ -33,13 +33,18 @@ function Tasks() {
   }, []);
 
   return (
-    <div className="bg-accent w-full flex flex-col items-center gap-4 border border-primary rounded p-5">
-      <span className="bg-secondary px-4 py-1 rounded">Tasks</span>
-      {tasks.map((task, index) => (
-        <Task key={index} {...task} setTasks={setTasks} />
-      ))}
+    <div className="bg-background w-full flex flex-col items-center gap-8 border border-border rounded p-5">
+      <span className="self-start font-bold text-2xl bg-background border-border py-1 rounded">
+        {" "}
+        My tasks
+      </span>
+      <div className="w-full flex flex-col gap-2">
+        {tasks.map((task, index) => (
+          <Task key={index} {...task} setTasks={setTasks} />
+        ))}
+      </div>
       <button
-        className="text-lg flex justify-center items-center gap-3 p-2 min-w-[5em] bg-secondary rounded hover:scale-110 hover:shadow-surround hover:shadow-accent  hover:text-accent"
+        className="text-lg flex justify-center items-center gap-3 p-2 min-w-[5em] bg-primary border border-border rounded hover:scale-110 transition-all"
         onClick={() => setAddTaskOpen(true)}
       >
         <span>New task</span>
@@ -73,18 +78,18 @@ function Task({ _id, title, deadline, status, setTasks }) {
   }, [checked]);
 
   return (
-    <div className="flex w-full justify-between bg-primary rounded">
+    <div className="flex w-full justify-between border border-border rounded">
       <span
-        className="bg-secondary border-r border-r-accent rounded-tl rounded-bl px-2"
+        className="flex justify-center items-center border-r border-r-border rounded-tl rounded-bl px-2 py-1"
         onClick={() => {
           setChecked(!checked);
         }}
       >
         <Checkmark checked={checked} />
       </span>
-      <span className="bg-red-500 border-r border-accent">
+      <span className="border-r border-border">
         <button
-          className="flex justify-center items-center w-7 h-full"
+          className="flex justify-center items-center w-10 h-full"
           onClick={async () => {
             setSubmittingDelete(true);
             const response = await API.delete(`/tasks/${_id}`);
@@ -100,10 +105,10 @@ function Task({ _id, title, deadline, status, setTasks }) {
         >
           <span className="w-7 h-7">
             {submittingDelete ? (
-              <Spinner className={"bg-red-500 w-full h-full"} />
+              <Spinner className={"w-full h-full"} />
             ) : (
-              <span className="bg-red-500 hover:bg-red-600 w-full h-full flex justify-center items-center">
-                <BiTrash className=" w-3/4 h-3/4" />
+              <span className="w-full h-full flex justify-center items-center">
+                <BiTrash className=" w-[2em] h-[2em] text-red-500 hover:text-red-700" />
               </span>
             )}
           </span>
@@ -113,21 +118,21 @@ function Task({ _id, title, deadline, status, setTasks }) {
       <span
         className={`${
           checked && "line-through"
-        } grow text-sm lg:text-md flex justify-start bg-secondary px-2 py-1 whitespace-nowrap overflow-clip`}
+        } grow text-sm lg:text-lg flex justify-start items-center bg-background px-2 py-1 whitespace-nowrap overflow-clip`}
       >
         {title}
       </span>
       <span className="hidden sm:flex">
         {deadline && (
-          <span className="flex h-full bg-secondary border-l border-accent overflow-clip">
-            <span className="flex items-center px-2">Due by:</span>
-            <span className="flex items-center bg-white px-2">
+          <span className="flex h-full bg-accent bg-opacity-50 border-l border-border overflow-clip">
+            <span className="flex items-center px-2">Deadline:</span>
+            <span className="flex items-center px-2">
               {formatDate(deadline)}
             </span>
           </span>
         )}
       </span>
-      <span className="flex justify-center min-w-fit items-center bg-secondary px-2 rounded-tr rounded-br border-l border-accent">
+      <span className="flex justify-center min-w-fit items-center bg-accent bg-opacity-50 px-2 rounded-tr rounded-br border-l border-border hover:text-primary">
         <Link to={`/tasks/${_id}`}>
           <span> More details</span>
         </Link>

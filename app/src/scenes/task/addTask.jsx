@@ -40,10 +40,10 @@ function AddTask({ open, setOpen, setTasks }) {
       >
         {(formik) => (
           <form
-            className="w-2/3 flex flex-col justify-between items-center gap-1 bg-primary rounded p-4"
+            className="w-2/3 h-2/3 flex flex-col justify-center items-center gap-10 bg-secondary border-2 border-border rounded p-4"
             onSubmit={formik.handleSubmit}
           >
-            <h2 className="w-2/3 flex justify-center items-center text-xl sm:text-3xl bg-secondary rounded px-2 py-1">
+            <h2 className="font-medium w-2/3 flex justify-center items-center text-xl sm:text-3xl">
               Add a task
             </h2>
             <div className="flex flex-col w-full justify-center gap-3">
@@ -53,7 +53,7 @@ function AddTask({ open, setOpen, setTasks }) {
                   <div className="flex items-center">
                     {" "}
                     <label
-                      className="min-w-[5em] sm:min-w-[9em] bg-secondary rounded-tl rounded-bl px-2 py-1"
+                      className="min-w-[5em] sm:min-w-[9em] bg-accent bg-opacity-70 rounded-tl rounded-bl px-2 py-1"
                       htmlFor="title"
                     >
                       Title
@@ -77,7 +77,7 @@ function AddTask({ open, setOpen, setTasks }) {
                   <div className="flex items-stretch">
                     {" "}
                     <label
-                      className="min-w-[5em] sm:min-w-[9em] bg-secondary rounded-tl rounded-bl px-2 py-1"
+                      className="min-w-[5em] sm:min-w-[9em] bg-accent bg-opacity-70 rounded-tl rounded-bl px-2 py-1"
                       htmlFor="deadline"
                     >
                       <span>{"Due by"}</span>
@@ -98,13 +98,13 @@ function AddTask({ open, setOpen, setTasks }) {
 
               <div className="flex justify-center items-center gap-3">
                 <button
-                  className="flex justify-center bg-secondary hover:scale-110 hover:shadow-surround hover:shadow-accent  hover:text-accent rounded px-2 py-1"
+                  className="flex justify-center bg-accent bg-opacity-70 hover:scale-110 hover:text-white transition-all rounded px-2 py-1"
                   type="submit"
                 >
                   {formik.isSubmitting ? <Spinner /> : <span>Add task</span>}
                 </button>
                 <button
-                  className="flex justify-center bg-secondary hover:scale-110 hover:shadow-surround hover:shadow-accent  hover:text-accent rounded px-2 py-1"
+                  className="flex justify-center bg-accent bg-opacity-70 hover:scale-110 hover:text-white transition-all rounded px-2 py-1"
                   onClick={() => setOpen(false)}
                 >
                   Cancel

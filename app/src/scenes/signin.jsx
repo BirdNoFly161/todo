@@ -10,8 +10,8 @@ import API from "../../api";
 
 function SignIn() {
   return (
-    <div className="flex flex-col justify-center w-2/3 sm:w-1/2">
-      <h2 className="text-lg p-2 min-w-[5em] bg-secondary text-center rounded-tl rounded-tr">
+    <div className="flex flex-col justify-center bg-background w-2/3 sm:w-1/2">
+      <h2 className="text-lg p-2 min-w-[5em] bg-accent text-center rounded-tl rounded-tr">
         Sign in
       </h2>
       <SignInForm />
@@ -57,7 +57,7 @@ function SignInForm() {
                 <div className="flex items-center">
                   {" "}
                   <label
-                    className="text-sm sm:text-lg min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
+                    className="text-sm sm:text-lg min-w-[6em] bg-accent rounded-tl rounded-bl px-2 py-1"
                     htmlFor="username"
                   >
                     User name
@@ -89,7 +89,7 @@ function SignInForm() {
                 <div className="flex items-center">
                   {" "}
                   <label
-                    className="text-sm sm:text-lg min-w-[6em] bg-secondary rounded-tl rounded-bl px-2 py-1"
+                    className="text-sm sm:text-lg min-w-[6em] bg-accent rounded-tl rounded-bl px-2 py-1"
                     htmlFor="password"
                   >
                     password
@@ -118,7 +118,7 @@ function SignInForm() {
             </div>
 
             <button
-              className="flex justify-center w-1/3 bg-secondary hover:scale-110 hover:shadow-surround hover:shadow-accent  hover:text-accent rounded px-2 py-1"
+              className="flex justify-center w-1/3 bg-accent bg-opacity-70 hover:scale-110 hover:text-white transition-all rounded px-2 py-1"
               type="submit"
             >
               {formik.isSubmitting ? <Spinner /> : <span>Sign in</span>}

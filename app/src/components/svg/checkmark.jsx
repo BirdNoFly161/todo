@@ -9,7 +9,9 @@ function Checkmark({ checked, className }) {
 
   return (
     <svg
-      className={`w-[2em] h-[2em] p-2 ${className ? className : ""}`}
+      className={`w-[1.5em] h-[1.5em] p-1 border border-border rounded-sm ${
+        checked ? "bg-green-500" : "bg-background"
+      } hover:bg-accent ${className ? className : ""}`}
       viewBox="0 0 354 260"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
