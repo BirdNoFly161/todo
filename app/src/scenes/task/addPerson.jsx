@@ -145,12 +145,12 @@ function SearchBar({ task, selectedUser, setSelectedUser }) {
       <span
         className={`${
           !suggestionsOpen && "hidden"
-        } w-full absolute flex flex-col items-center justify-center bg-accent rounded-bl rounded-br`}
+        } w-full absolute flex flex-col items-center justify-center bg-background border border-border rounded-bl rounded-br`}
       >
         {selectedUser && (
           <span
             onClick={() => setSuggestionsOpen(false)}
-            className="flex justify-center items-center gap-4 w-full spy-2 hover:bg-accent hover:text-white ${index!==users.length-1 && 'border-b'} border-accent ${(index===users.length-1) && 'rounded-bl rounded-br'}"
+            className="flex justify-center items-center gap-4 w-full spy-2 hover:bg-accent hover:text-white ${index!==users.length-1 && 'border-b'} border-border ${(index===users.length-1) && 'rounded-bl rounded-br'}"
           >
             {selectedUser.username}
             <IoMdCheckmark />
@@ -172,7 +172,7 @@ function SearchBar({ task, selectedUser, setSelectedUser }) {
                   }}
                   className={` flex justify-center items-center w-full spy-2 hover:bg-accent hover:text-white ${
                     index !== users.length - 1 && "border-b"
-                  } border-accent ${
+                  } border-border ${
                     index === users.length - 1 && "rounded-bl rounded-br"
                   }`}
                   key={index}
@@ -194,7 +194,7 @@ function SearchBar({ task, selectedUser, setSelectedUser }) {
                   }}
                   className={` flex justify-center items-center w-full spy-2 hover:bg-accent hover:text-white ${
                     index !== users.length - 1 && "border-b"
-                  } border-accent ${
+                  } border-border ${
                     index === users.length - 1 && "rounded-bl rounded-br"
                   }`}
                   key={index}

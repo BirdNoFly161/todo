@@ -47,7 +47,7 @@ function Tasks() {
             ))}
           </div>
           <button
-            className="text-lg flex justify-center items-center gap-3 p-2 min-w-[5em] bg-primary border border-border rounded hover:scale-110 transition-all"
+            className="font-medium text-xl flex justify-center items-center gap-3 p-2 min-w-[5em] bg-primary border border-border rounded hover:scale-110 transition-all"
             onClick={() => setAddTaskOpen(true)}
           >
             <span>New task</span>

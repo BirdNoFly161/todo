@@ -14,44 +14,53 @@ function Task() {
   const [addPersonOpen, setAddPersonOpen] = useState(false);
   const navigate = useNavigate();
   return (
-    <div className="w-2/3 flex flex-col justify-center items-start gap-4 border border-border rounded p-6">
-      <h1 className="font-bold text-3xl">{task.title}</h1>
-      {task.deadline ? (
-        <span>
-          <span className="font-medium text-lg">Deadline:</span>{" "}
-          {formatDate(task.deadline)}
-        </span>
-      ) : (
-        <span>No deadline specified for this task</span>
-      )}
-      <div className="flex flex-col people">
-        <span className="font-medium text-lg">Users involved:</span>
-        <div className="flex gap-1 flex-wrap">
-          {task.people.map((person, index) => (
-            <Person key={index} person={person} task={task} setTask={setTask} />
-          ))}
+    <div className="w-2/3 flex flex-col justify-center items-center gap-4">
+      <div className="w-2/3 flex flex-col justify-center items-start gap-4 border border-border rounded p-6">
+        <h1 className="font-bold text-3xl">{task.title}</h1>
+        {task.deadline ? (
+          <span>
+            <span className="font-medium text-lg">Deadline:</span>{" "}
+            {formatDate(task.deadline)}
+          </span>
+        ) : (
+          <span>No deadline specified for this task</span>
+        )}
+        <div className="flex flex-col people">
+          <span className="font-medium text-lg">Users involved:</span>
+          <div className="flex gap-1 flex-wrap">
+            {task.people.map((person, index) => (
+              <Person
+                key={index}
+                person={person}
+                task={task}
+                setTask={setTask}
+              />
+            ))}
+          </div>
         </div>
+        <AddPerson
+          task={task}
+          setTask={setTask}
+          open={addPersonOpen}
+          setOpen={setAddPersonOpen}
+        />
       </div>
-      <button
-        className="flex justify-center gap-3 min-w-fit items-center bg-primary px-2 py-1 border border-border hover:scale-110 transition-all rounded"
-        onClick={() => setAddPersonOpen(true)}
-      >
-        Assign person <BiPlusCircle />
-      </button>
 
-      <button
-        className="bg-background border border-border rounded px-2 py-1 hover:bg-primary transition-all"
-        onClick={() => navigate("/")}
-      >
-        <IoReturnDownBackOutline className="w-[2em] h-[2em]" />
-      </button>
+      <div className="w-2/3 flex justify-start gap-3">
+        <button
+          className="font-medium text-xl flex self-start justify-center gap-3 min-w-fit items-center bg-primary px-2 py-1 border border-border hover:scale-110 transition-all rounded"
+          onClick={() => setAddPersonOpen(true)}
+        >
+          Assign person <BiPlusCircle />
+        </button>
 
-      <AddPerson
-        task={task}
-        setTask={setTask}
-        open={addPersonOpen}
-        setOpen={setAddPersonOpen}
-      />
+        <button
+          className="bg-primary border border-border rounded px-2 hover:scale-110 transition-all"
+          onClick={() => navigate("/")}
+        >
+          <IoReturnDownBackOutline className="w-[2em] h-[2em]" />
+        </button>
+      </div>
     </div>
   );
 }
