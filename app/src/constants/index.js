@@ -1,4 +1,4 @@
-export const navLinks = [{ title: "Tasks", link: "/tasks" }];
+export const navLinks = [];
 
 export const months = [
   "Jan",

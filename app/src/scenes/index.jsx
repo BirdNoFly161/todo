@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { setAuthToken, setUser } from "../redux/user/userSlice";
 import API from "../../api";
+import "../App.css";
 
 function Root() {
   const [loading, setLoading] = useState(true);

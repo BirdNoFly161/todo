@@ -6,11 +6,13 @@ import { TfiClose } from "react-icons/tfi";
 import { formatDate } from "../../utils";
 import Spinner from "../../components/spinner";
 import AddPerson from "./addPerson";
+import { useNavigate } from "react-router-dom";
+import { IoReturnDownBackOutline } from "react-icons/io5";
 
 function Task() {
   const [task, setTask] = useState(useLoaderData());
   const [addPersonOpen, setAddPersonOpen] = useState(false);
-  console.log(task);
+  const navigate = useNavigate();
   return (
     <div className="w-2/3 flex flex-col justify-center items-start gap-4 border border-border rounded p-6">
       <h1 className="font-bold text-3xl">{task.title}</h1>
@@ -31,11 +33,19 @@ function Task() {
         </div>
       </div>
       <button
-        className="flex justify-center gap-3 min-w-fit items-center bg-green-500 px-2 py-1 border border-border hover:scale-110 transition-all rounded"
+        className="flex justify-center gap-3 min-w-fit items-center bg-primary px-2 py-1 border border-border hover:scale-110 transition-all rounded"
         onClick={() => setAddPersonOpen(true)}
       >
         Assign person <BiPlusCircle />
       </button>
+
+      <button
+        className="bg-background border border-border rounded px-2 py-1 hover:bg-primary transition-all"
+        onClick={() => navigate("/")}
+      >
+        <IoReturnDownBackOutline className="w-[2em] h-[2em]" />
+      </button>
+
       <AddPerson
         task={task}
         setTask={setTask}

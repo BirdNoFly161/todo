@@ -31,7 +31,7 @@ function AddPerson({ open, setOpen, task, setTask }) {
       >
         {(formik) => (
           <form
-            className="w-2/3 h-2/3 flex flex-col justify-center items-center gap-10 bg-secondary border-2 border-border rounded p-4"
+            className="w-fit h-fit p-5 flex flex-col justify-center items-center gap-10 bg-background border-2 border-border rounded p-4"
             onSubmit={formik.handleSubmit}
           >
             <h2 className="text-md sm:text-3xl w-2/3 flex justify-center items-center sm:text-3xl rounded px-2 py-1">

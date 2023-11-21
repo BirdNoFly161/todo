@@ -8,8 +8,8 @@ import API from "../../api";
 
 function Signup() {
   return (
-    <div className="flex flex-col justify-center w-full sm:w-1/2">
-      <h2 className="text-lg p-2 min-w-[5em] bg-accent text-center rounded-tl rounded-tr">
+    <div className="flex flex-col justify-center w-full sm:w-2/3">
+      <h2 className="font-medium text-3xl p-2 min-w-[5em] bg-accent text-center border border-border rounded-tl rounded-tr">
         Signup
       </h2>
       <SignupForm />
@@ -62,7 +62,7 @@ function SignupForm() {
       >
         {(formik) => (
           <form
-            className="flex flex-col items-center gap-5 bg-primary rounded-bl rounded-br p-4"
+            className="flex flex-col items-center p-10 gap-7 bg-background border-l border-r border-b border-border rounded-bl rounded-br p-4"
             onSubmit={formik.handleSubmit}
           >
             <div className="flex flex-col gap-3 w-full">
@@ -71,7 +71,7 @@ function SignupForm() {
                 <div className="flex items-center">
                   {" "}
                   <label
-                    className="text-sm sm:text-lg min-w-[7em] bg-accent rounded-tl rounded-bl px-2 py-1"
+                    className="text-sm sm:text-lg min-w-[7em] bg-primary rounded-tl rounded-bl px-2 py-1"
                     htmlFor="username"
                   >
                     User name
@@ -107,7 +107,7 @@ function SignupForm() {
                 <div className="flex items-center">
                   {" "}
                   <label
-                    className="text-sm sm:text-lg min-w-[7em] bg-accent rounded-tl rounded-bl px-2 py-1"
+                    className="text-sm sm:text-lg min-w-[7em] bg-primary rounded-tl rounded-bl px-2 py-1"
                     htmlFor="firstName"
                   >
                     First name
@@ -142,7 +142,7 @@ function SignupForm() {
                 <div className="flex items-center">
                   {" "}
                   <label
-                    className="text-sm sm:text-lg min-w-[7em] bg-accent rounded-tl rounded-bl px-2 py-1"
+                    className="text-sm sm:text-lg min-w-[7em] bg-primary rounded-tl rounded-bl px-2 py-1"
                     htmlFor="lastName"
                   >
                     Last name
@@ -177,7 +177,7 @@ function SignupForm() {
                 <div className="flex items-center">
                   {" "}
                   <label
-                    className="text-sm sm:text-lg min-w-[7em] bg-accent rounded-tl rounded-bl px-2 py-1"
+                    className="text-sm sm:text-lg min-w-[7em] bg-primary rounded-tl rounded-bl px-2 py-1"
                     htmlFor="email"
                   >
                     e-mail
@@ -212,7 +212,7 @@ function SignupForm() {
                 <div className="flex items-center">
                   {" "}
                   <label
-                    className="text-sm sm:text-lg min-w-[7em] bg-accent rounded-tl rounded-bl px-2 py-1"
+                    className="text-sm sm:text-lg min-w-[7em] bg-primary rounded-tl rounded-bl px-2 py-1"
                     htmlFor="password"
                   >
                     password
@@ -245,7 +245,7 @@ function SignupForm() {
             </div>
 
             <button
-              className="flex justify-center w-1/3 bg-accent bg-opacity-70 hover:scale-110 hover:text-white transition-all rounded px-2 py-1"
+              className="font-medium text-2xl flex justify-center w-1/3 bg-primary border border-border bg-opacity-70 hover:scale-110 hover:text-white transition-all rounded px-2 py-1"
               type="submit"
             >
               {formik.isSubmitting ? <Spinner /> : <span>Sign up</span>}

@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { RouterProvider } from "react-router-dom";
 import Root from "./scenes";
-import Home from "./scenes/home";
 import SignIn from "./scenes/signin";
 import Signup from "./scenes/signup";
 import Users from "./scenes/user";
@@ -19,7 +18,7 @@ function App() {
       children: [
         {
           path: "/",
-          element: <Home />,
+          element: <Tasks />,
         },
         {
           path: "/signup",
@@ -32,10 +31,6 @@ function App() {
         {
           path: "/users",
           element: <Users />,
-        },
-        {
-          path: "/tasks",
-          element: <Tasks />,
         },
         {
           path: "/tasks/:taskId",

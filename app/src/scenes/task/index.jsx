@@ -38,12 +38,10 @@ function Tasks() {
         <span>You need to login to view your tasks</span>
       ) : (
         <>
-          {" "}
           <span className="self-start font-bold text-2xl bg-background border-border py-1 rounded">
-            {" "}
             My tasks
           </span>
-          <div className="w-full flex flex-col gap-2">
+          <div className="w-full flex flex-col justify-center items-center gap-2">
             {tasks.map((task, index) => (
               <Task key={index} {...task} setTasks={setTasks} />
             ))}
@@ -85,7 +83,7 @@ function Task({ _id, title, deadline, status, setTasks }) {
   }, [checked]);
 
   return (
-    <div className="flex w-full justify-between border border-border rounded">
+    <div className="flex w-full lg:w-2/3 justify-between border border-border rounded">
       <span
         className="flex justify-center items-center border-r border-r-border rounded-tl rounded-bl px-2 py-1"
         onClick={() => {
@@ -94,7 +92,26 @@ function Task({ _id, title, deadline, status, setTasks }) {
       >
         <Checkmark checked={checked} />
       </span>
-      <span className="border-r border-border">
+
+      <span
+        className={`${
+          checked && "line-through"
+        } grow text-sm lg:text-lg flex justify-start items-center bg-background px-2 py-1 whitespace-nowrap overflow-clip`}
+      >
+        {title}
+      </span>
+      <span className="hidden sm:flex">
+        {deadline && (
+          <span className="flex h-full bg-accent bg-opacity-50 border-l border-border overflow-clip">
+            <span className="flex items-center px-2">Deadline:</span>
+            <span className="flex items-center px-2">
+              {formatDate(deadline)}
+            </span>
+          </span>
+        )}
+      </span>
+
+      <span className="border-l border-border">
         <button
           className="flex justify-center items-center w-10 h-full"
           onClick={async () => {
@@ -122,24 +139,7 @@ function Task({ _id, title, deadline, status, setTasks }) {
         </button>
       </span>
 
-      <span
-        className={`${
-          checked && "line-through"
-        } grow text-sm lg:text-lg flex justify-start items-center bg-background px-2 py-1 whitespace-nowrap overflow-clip`}
-      >
-        {title}
-      </span>
-      <span className="hidden sm:flex">
-        {deadline && (
-          <span className="flex h-full bg-accent bg-opacity-50 border-l border-border overflow-clip">
-            <span className="flex items-center px-2">Deadline:</span>
-            <span className="flex items-center px-2">
-              {formatDate(deadline)}
-            </span>
-          </span>
-        )}
-      </span>
-      <span className="flex justify-center min-w-fit items-center bg-accent bg-opacity-50 px-2 rounded-tr rounded-br border-l border-border hover:text-primary">
+      <span className="flex justify-center min-w-fit items-center bg-accent bg-opacity-50 px-2 rounded-tr rounded-br border-l border-border hover:bg-opacity-100">
         <Link to={`/tasks/${_id}`}>
           <span> More details</span>
         </Link>
