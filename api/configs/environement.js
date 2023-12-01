@@ -21,7 +21,7 @@ if (environment != "production") {
     "https://oussamabenmansour.site",
     "https://todo-app-sharpoussama-gmailcom.vercel.app",
   ];
-  MULTER_UPLOAD = "/temp";
+  MULTER_UPLOAD = "/tmp";
 }
 
 const secret = process.env.secret || "what is a secret bruh";
