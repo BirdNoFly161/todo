@@ -3,6 +3,9 @@ import jwt from "jsonwebtoken";
 import User from "../database/models/userSchema.js";
 import { secret } from "../configs/environement.js";
 import passport from "passport";
+import multer from "multer";
+
+const upload = multer({ dest: "public/user/image/" });
 
 var router = express.Router();
 
@@ -16,20 +19,28 @@ router.get("/", async function get_users(req, res) {
   }
 });
 
-router.post("/register", async function register_user(req, res) {
-  try {
-    const new_user = new User(req.body);
-    await new_user.save();
-    res.status(200).json({ msg: "user created successfully" });
-  } catch (error) {
-    console.log("couldnt register user, error: ", error);
-    res.status(500);
-  }
-});
+router.post(
+  "/register",
+  upload.single("profile"),
+  async function register_user(req, res) {
+    try {
+      const new_user = new User(req.body);
+      console.log("sign up body : ", req.body);
+      console.log("parsed file: ", req.file);
+      new_user.image = req.file.filename;
+      await new_user.save();
+      res.status(200).json({ msg: "user created successfully" });
+    } catch (error) {
+      console.log("couldnt register user, error: ", error);
+      res.status(500);
+    }
+  },
+);
 
 router.post("/login", async function login_user(req, res) {
   try {
     let user = await User.findOne({ username: req.body.username });
+    console.log("get user query returned: ", req.body);
     if (!user) {
       return res.status(404).json({ msg: "no such user" });
     }

@@ -27,6 +27,7 @@ function SignupForm() {
           lastName: "Benmansour",
           email: "oussama@gmail.com",
           password: "Passowrd123&&",
+          profile: [],
         }}
         validationSchema={Yup.object({
           username: Yup.string().required("User name is required"),
@@ -50,9 +51,11 @@ function SignupForm() {
               /(?=.*[-_~!@#$%^&+])/,
               "Password must contain atleast one symbol",
             ),
+          profile: Yup.mixed(),
         })}
         onSubmit={async (values, { setSubmitting }) => {
-          let response = await API.post("/users/register", values);
+          console.log("trying to submit sign up with values: ", values);
+          let response = await API.post_multipart("/users/register", values);
           setSubmitting(false);
           if (response.status === 200) {
             toast.success("Succesfully created account");
@@ -101,7 +104,6 @@ function SignupForm() {
                   </div>
                 ) : null}
               </div>
-
               <div className="flex flex-col">
                 {" "}
                 <div className="flex items-center">
@@ -241,6 +243,27 @@ function SignupForm() {
                     {formik.errors.password}
                   </div>
                 ) : null}
+              </div>
+              <div className="flex flex-col">
+                {" "}
+                <div className="flex items-stretch">
+                  {" "}
+                  <label
+                    className="text-sm sm:text-lg max-w-[7em] sm:min-w-[15em] bg-primary rounded-tl rounded-bl px-2 py-1"
+                    htmlFor="profile"
+                  >
+                    {"Profile picture (Optional)"}
+                  </label>
+                  <input
+                    className="w-full text-sm sm:text-lg px-2 py-1 rounded-tr rounded-br bg-white"
+                    type="file"
+                    id="profile"
+                    name="profile"
+                    onChange={(e) =>
+                      formik.setFieldValue("profile", e.target.files[0])
+                    }
+                  />
+                </div>
               </div>
             </div>
 
