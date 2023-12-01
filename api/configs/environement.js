@@ -7,6 +7,8 @@ environement variables willb be populated by the hosting environment or will be 
 import dotenv from "dotenv";
 let clientURLS = [];
 const environment = process.env.Environment;
+let BLOB_READ_WRITE_TOKEN =
+  "vercel_blob_rw_nSVZogblPOrEptLk_I8r8UlA2bYNTxrk0vHdU9EuyEqFqKO";
 
 if (environment != "production") {
   dotenv.config();
@@ -20,4 +22,4 @@ if (environment != "production") {
 
 const secret = process.env.secret || "what is a secret bruh";
 
-export { secret, environment, clientURLS };
+export { secret, environment, clientURLS, BLOB_READ_WRITE_TOKEN };

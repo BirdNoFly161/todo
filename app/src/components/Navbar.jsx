@@ -51,11 +51,7 @@ function DesktopNavbar({ links }) {
         {user ? (
           <>
             <span className="text-lg flex flex-col justify-center bg-background text-center w-10 h-10 rounded-full">
-              <img
-                className="rounded-full"
-                src={`${API.getURI()}${"/user/image/"}${user.image}`}
-                alt=""
-              />
+              <img className="rounded-full" src={user.image} alt="" />
             </span>
             <button
               className="sm:text-md lg:text-lg flex flex-col justify-center items-center px-2 py-1 min-w-[5em] bg-background border border-border text-center rounded hover:scale-110 transition-all"
