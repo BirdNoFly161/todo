@@ -9,9 +9,10 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import { put } from "@vercel/blob";
+import { MULTER_UPLOAD } from "../configs/environement.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const upload = multer({ dest: "temp/" });
+const upload = multer({ dest: MULTER_UPLOAD });
 
 var router = express.Router();
 
