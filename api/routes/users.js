@@ -103,7 +103,6 @@ router.get(
   passport.authenticate("user", { session: false }),
   async function (req, res) {
     if (req.cookies.token) {
-      req.user.image.data = req.user.image.data;
       res.status(200).json({ token: req.cookies.token, user: req.user });
     } else {
       res.status(401).json({ msg: "Invalid token" });
