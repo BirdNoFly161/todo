@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import API from "../../../api";
-import { formatDate } from "../../utils";
+import { formatDate, getDateDiff, formatDiff } from "../../utils";
 import { useSelector } from "react-redux";
 import { BiPlusCircle, BiTrash } from "react-icons/bi";
+import { IoWarningOutline } from "react-icons/io5";
 import Checkmark from "../../components/svg/checkmark";
 import AddTask from "./addTask";
 import Spinner from "../../components/spinner";
@@ -102,10 +103,16 @@ function Task({ _id, title, deadline, status, setTasks }) {
       </span>
       <span className="hidden sm:flex">
         {deadline && (
-          <span className="flex h-full bg-accent bg-opacity-50 border-l border-border overflow-clip">
+          <span className="flex h-full min-w-[12em] bg-accent bg-opacity-50 border-l border-border overflow-clip">
             <span className="flex items-center px-2">Deadline:</span>
             <span className="flex items-center px-2">
-              {formatDate(deadline)}
+              {getDateDiff(deadline) < 0 ? (
+                <span className="flex gap-1 items-center text-red-700">
+                  {"Overdue"} <IoWarningOutline />
+                </span>
+              ) : (
+                `${formatDiff(getDateDiff(deadline), "days")} days left`
+              )}
             </span>
           </span>
         )}
