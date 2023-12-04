@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import API from "../../../api";
-import { formatDate, getDateDiff, formatDiff } from "../../utils";
+import { getDateDiff, formatDiff } from "../../utils";
 import { useSelector } from "react-redux";
-import { BiPlusCircle, BiTrash } from "react-icons/bi";
+import { BiTrash } from "react-icons/bi";
 import { IoWarningOutline } from "react-icons/io5";
 import Checkmark from "../../components/svg/checkmark";
 import AddTask from "./addTask";
@@ -11,7 +11,6 @@ import Spinner from "../../components/spinner";
 
 function Tasks() {
   const currentUser = useSelector((state) => state.user.currentUser);
-  const [addTaskOpen, setAddTaskOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
@@ -47,18 +46,8 @@ function Tasks() {
               <Task key={index} {...task} setTasks={setTasks} />
             ))}
           </div>
-          <button
-            className="font-medium text-xl flex justify-center items-center gap-3 p-2 min-w-[5em] bg-primary border border-border rounded hover:scale-110 transition-all"
-            onClick={() => setAddTaskOpen(true)}
-          >
-            <span>New task</span>
-            <BiPlusCircle />
-          </button>
-          <AddTask
-            open={addTaskOpen}
-            setOpen={setAddTaskOpen}
-            setTasks={setTasks}
-          />
+
+          <AddTask setTasks={setTasks} />
         </>
       )}
     </div>
@@ -67,17 +56,17 @@ function Tasks() {
 
 function Task({ _id, title, deadline, status, setTasks }) {
   const currentUser = useSelector((state) => state.user.currentUser);
-  const [checked, setChecked] = useState(status === "completed" ? true : false);
+  const [checked, setChecked] = useState(status === "Completed" ? true : false);
   const [submittingDelete, setSubmittingDelete] = useState(false);
 
   useEffect(() => {
     const updateTaskStatus = async () => {
       console.log("changed checked box to ", checked, "for task: ", _id, {
-        status: checked ? "completed" : "uncompleted",
+        status: checked ? "Completed" : "Uncompleted",
       });
       // eslint-disable-next-line no-unused-vars
       const response = await API.put(`/tasks/${_id}`, {
-        status: checked ? "completed" : "uncompleted",
+        status: checked ? "Completed" : "Uncompleted",
       });
     };
     updateTaskStatus();
@@ -103,8 +92,7 @@ function Task({ _id, title, deadline, status, setTasks }) {
       </span>
       <span className="hidden sm:flex">
         {deadline && (
-          <span className="flex h-full min-w-[12em] bg-accent bg-opacity-50 border-l border-border overflow-clip">
-            <span className="flex items-center px-2">Deadline:</span>
+          <span className="flex justify-center h-full min-w-[7em] bg-accent bg-opacity-50 border-l border-border overflow-clip">
             <span className="flex items-center px-2">
               {getDateDiff(deadline) < 0 ? (
                 <span className="flex gap-1 items-center text-red-700">

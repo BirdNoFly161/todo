@@ -1,6 +1,6 @@
-export const navLinks = [];
+const navLinks = [];
 
-export const months = [
+const months = [
   "Jan",
   "Feb",
   "Mar",
@@ -14,4 +14,9 @@ export const months = [
   "Nov",
   "Dec",
 ];
-export const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri;", "Sat"];
+
+const taskStatuses = ["Completed", "In progress", "Uncompleted"];
+
+const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri;", "Sat"];
+
+export { days, months, navLinks, taskStatuses };
