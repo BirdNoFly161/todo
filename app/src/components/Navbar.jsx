@@ -53,7 +53,7 @@ function DesktopNavbar({ links }) {
           <>
             <span
               onClick={() => navigate("/dashboard")}
-              className="text-lg flex flex-col justify-center bg-background text-center w-10 h-10 rounded-full"
+              className="text-lg flex flex-col justify-center bg-background text-center w-10 h-10 rounded-full cursor-pointer"
             >
               {user.image && (
                 <img className="rounded-full" src={user.image} alt="" />
