@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { setAuthToken } from "../redux/user/userSlice";
 import { setUser } from "../redux/user/userSlice";
 import API from "../../api";
+import toast from "react-hot-toast";
 
 function SignIn() {
   return (
@@ -43,6 +44,8 @@ function SignInForm() {
             setSubmitting(false);
             console.log(response);
             navigate("/");
+          } else {
+            toast.error(response.msg);
           }
         }}
       >

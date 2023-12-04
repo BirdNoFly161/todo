@@ -35,14 +35,16 @@ router.post(
       console.log("sign up body : ", req.body);
       console.log("parsed file: ", req.file);
 
-      console.log("vercel blob token: ", BLOB_READ_WRITE_TOKEN);
-      const { url } = await put(
-        "user/image",
-        fs.readFileSync(path.join("temp/", req.file.filename)),
-        { access: "public", token: BLOB_READ_WRITE_TOKEN },
-      );
+      if (req.file) {
+        const { url } = await put(
+          "user/image",
+          fs.readFileSync(path.join("temp/", req.file.filename)),
+          { access: "public", token: BLOB_READ_WRITE_TOKEN },
+        );
 
-      new_user.image = url;
+        new_user.image = url;
+      }
+
       await new_user.save();
       res.status(200).json({ msg: "user created successfully" });
     } catch (error) {

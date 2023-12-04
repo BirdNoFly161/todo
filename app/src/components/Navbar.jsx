@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../redux/user/userSlice";
 import { setAuthToken } from "../redux/user/userSlice";
@@ -33,6 +33,7 @@ const StyledButton = ({ title, onClick }) => {
 function DesktopNavbar({ links }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
+  const navigate = useNavigate();
   return (
     <div className="sm:flex hidden w-[calc(100vw - .5rem)] bg-primary h-12 justify-between p-2">
       <span className="flex items-center sm:text-md lg:text-xl">
@@ -50,8 +51,16 @@ function DesktopNavbar({ links }) {
       <div className="flex items-center justify-center gap-2">
         {user ? (
           <>
-            <span className="text-lg flex flex-col justify-center bg-background text-center w-10 h-10 rounded-full">
-              <img className="rounded-full" src={user.image} alt="" />
+            <span
+              onClick={() => navigate("/dashboard")}
+              className="text-lg flex flex-col justify-center bg-background text-center w-10 h-10 rounded-full"
+            >
+              {user.image && (
+                <img className="rounded-full" src={user.image} alt="" />
+              )}
+              {!user.image && (
+                <FaUserCircle className="text-gray-500 bg-white rounded-full w-full h-full" />
+              )}
             </span>
             <button
               className="sm:text-md lg:text-lg flex flex-col justify-center items-center px-2 py-1 min-w-[5em] bg-background border border-border text-center rounded hover:scale-110 transition-all"
