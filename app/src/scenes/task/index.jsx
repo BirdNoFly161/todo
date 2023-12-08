@@ -1,13 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { Link } from "react-router-dom";
 import API from "../../../api";
 import { getDateDiff, formatDiff } from "../../utils";
 import { useSelector } from "react-redux";
 import { BiTrash } from "react-icons/bi";
 import { IoWarningOutline } from "react-icons/io5";
+import { HiChevronUpDown } from "react-icons/hi2";
 import Checkmark from "../../components/svg/checkmark";
 import AddTask from "./addTask";
 import Spinner from "../../components/spinner";
+import { Listbox } from "@headlessui/react";
+import { taskStatuses } from "../../constants";
 
 function Tasks() {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -58,19 +61,31 @@ function Task({ _id, title, deadline, status, setTasks }) {
   const currentUser = useSelector((state) => state.user.currentUser);
   const [checked, setChecked] = useState(status === "Completed" ? true : false);
   const [submittingDelete, setSubmittingDelete] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState(status);
 
   useEffect(() => {
-    const updateTaskStatus = async () => {
-      console.log("changed checked box to ", checked, "for task: ", _id, {
-        status: checked ? "Completed" : "Uncompleted",
-      });
-      // eslint-disable-next-line no-unused-vars
-      const response = await API.put(`/tasks/${_id}`, {
-        status: checked ? "Completed" : "Uncompleted",
-      });
-    };
-    updateTaskStatus();
-  }, [checked]);
+    async function updateStatus() {
+      let response = await API.put(`/tasks/${_id}`, { status: selectedStatus });
+      if (response.status === 200) {
+        if (selectedStatus === "Completed") {
+          setChecked(true);
+        } else {
+          setChecked(false);
+        }
+      }
+    }
+
+    updateStatus();
+  }, [selectedStatus]);
+  /*
+  useEffect(()=>{
+    if(checked){
+      setSelectedStatus("Completed");
+    }
+    else{
+      setSelectedStatus("Uncompleted");
+    }
+  }, [checked]);*/
 
   return (
     <div className="flex w-full lg:w-2/3 justify-between border border-border rounded">
@@ -104,6 +119,30 @@ function Task({ _id, title, deadline, status, setTasks }) {
             </span>
           </span>
         )}
+      </span>
+
+      <span className="flex justify-center min-w-[9em] border-l border-border">
+        <Listbox value={selectedStatus} onChange={setSelectedStatus}>
+          <div className="relative grow">
+            <Listbox.Button className="flex items-center justify-between px-2 py-1 w-full h-full hover:bg-accent hover:bg-opacity-60">
+              {selectedStatus}
+              <HiChevronUpDown />
+            </Listbox.Button>
+            <Listbox.Options className="absolute w-full bg-background rounded-b border-b border-l border-r border-border z-10">
+              {taskStatuses.map((status, index) => (
+                <Listbox.Option
+                  key={index}
+                  value={status}
+                  className={({ active, selected }) =>
+                    `relative px-2 py-1 block ${active && "bg-accent"}`
+                  }
+                >
+                  {status}
+                </Listbox.Option>
+              ))}
+            </Listbox.Options>
+          </div>
+        </Listbox>
       </span>
 
       <span className="border-l border-border">
