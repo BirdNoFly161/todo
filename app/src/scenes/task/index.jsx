@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { BiTrash } from "react-icons/bi";
 import { IoWarningOutline } from "react-icons/io5";
 import { HiChevronUpDown } from "react-icons/hi2";
+import { BiDotsHorizontalRounded } from "react-icons/bi";
 import Checkmark from "../../components/svg/checkmark";
 import AddTask from "./addTask";
 import Spinner from "../../components/spinner";
@@ -77,15 +78,6 @@ function Task({ _id, title, deadline, status, setTasks }) {
 
     updateStatus();
   }, [selectedStatus]);
-  /*
-  useEffect(()=>{
-    if(checked){
-      setSelectedStatus("Completed");
-    }
-    else{
-      setSelectedStatus("Uncompleted");
-    }
-  }, [checked]);*/
 
   return (
     <div className="flex w-full lg:w-2/3 justify-between border border-border rounded">
@@ -133,7 +125,7 @@ function Task({ _id, title, deadline, status, setTasks }) {
                 <Listbox.Option
                   key={index}
                   value={status}
-                  className={({ active, selected }) =>
+                  className={({ active }) =>
                     `relative px-2 py-1 block ${active && "bg-accent"}`
                   }
                 >
@@ -173,9 +165,12 @@ function Task({ _id, title, deadline, status, setTasks }) {
         </button>
       </span>
 
-      <span className="flex justify-center min-w-fit items-center bg-accent bg-opacity-50 px-2 rounded-tr rounded-br border-l border-border hover:bg-opacity-100">
+      <span className="flex justify-center min-w-[2.5em] items-center bg-accent bg-opacity-50 px-2 rounded-tr rounded-br border-l border-border hover:bg-opacity-100">
         <Link to={`/tasks/${_id}`}>
-          <span> More details</span>
+          <span>
+            {" "}
+            <BiDotsHorizontalRounded />
+          </span>
         </Link>
       </span>
     </div>
