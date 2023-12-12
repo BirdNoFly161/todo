@@ -1,10 +1,12 @@
 import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Spinner from "../components/spinner";
 import { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { setAuthToken, setUser } from "../redux/user/userSlice";
+import { setSelectedFolder } from "../redux/user/folderSlice";
 import API from "../../api";
 import "../App.css";
 
@@ -21,6 +23,11 @@ function Root() {
         }
         dispatch(setAuthToken(response.token));
         dispatch(setUser(response.user));
+        dispatch(setSelectedFolder(response.user.folders[0]));
+        console.log(
+          "trying to set selected folder with: ",
+          response.user.folders[0],
+        );
         API.setAuthToken(response.token);
         //console.log(response);
         setLoading(false);
@@ -34,9 +41,12 @@ function Root() {
   return (
     <>
       <Navbar />
-      <div className="flex flex-col justify-center items-center p-6 bg-background h-[calc(100vh-3rem)]">
-        {loading && <Spinner />}
-        {!loading && <Outlet />}
+      <div className="flex bg-background h-[calc(100vh-3rem)]">
+        <Sidebar loading={loading} />
+        <div className="p-5 grow">
+          {loading && <Spinner />}
+          {!loading && <Outlet />}
+        </div>
       </div>
       <Toaster />
     </>

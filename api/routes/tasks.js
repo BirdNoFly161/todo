@@ -1,6 +1,8 @@
 import express from "express";
 import passport from "passport";
 import Task from "../database/models/taskSchema.js";
+import Folder from "../database/models/FolderSchema.js";
+
 var router = express.Router();
 
 router.get("/", async function get_task(req, res) {
@@ -35,6 +37,10 @@ router.post(
       let user = req.body.user;
       query.people = { $in: [user._id] };
     }
+    if (req.body.folder) {
+      query.folder = req.body.folder;
+    }
+
     console.log("query: ", query);
 
     let tasks = await Task.find(query);
@@ -80,12 +86,10 @@ router.put(
       await task.save();
 
       task = await Task.findOne({ _id: task._id }).populate("people");
-      return res
-        .status(200)
-        .json({
-          msg: `task updated successfully to: ${req.body.status}`,
-          task,
-        });
+      return res.status(200).json({
+        msg: `task updated successfully to: ${req.body.status}`,
+        task,
+      });
     } catch (error) {
       return res.status(500).json({ msg: "server error" });
     }
@@ -106,4 +110,44 @@ router.delete(
     }
   },
 );
+
+router.post(
+  "/folder",
+  passport.authenticate("user", { session: false }),
+  async function (req, res) {
+    console.log("got request to create new folder with data: ", req.body);
+    try {
+      let folder = {};
+      if (req.body.title) {
+        folder.title = req.body.title;
+      }
+      if (req.body.tasks) {
+        folder.tasks = req.body.tasks;
+      } else {
+        folder.tasks = [];
+      }
+
+      let new_folder = new Folder(folder);
+      await new_folder.save();
+      return res.status(200).json({ msg: "Folder created successfuly" });
+    } catch (error) {
+      return res.status(500).json({ msg: "server error" });
+    }
+  },
+);
+
+router.put(
+  "/folder",
+  passport.authenticate("user", { session: false }),
+  async function (req, res) {
+    console.log("got request to add task to folder with data: ", req.body);
+    try {
+      //TODO
+      return res.status(200).json({ msg: "Folder created successfuly" });
+    } catch (error) {
+      return res.status(500).json({ msg: "server error" });
+    }
+  },
+);
+
 export default router;

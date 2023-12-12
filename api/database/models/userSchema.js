@@ -11,6 +11,7 @@ const UserSchema = new Schema({
   password: String,
   image: String,
   description: String,
+  folders: { type: [String], default: ["My folder"] },
 });
 
 const User = mongoose.model("User", UserSchema);
