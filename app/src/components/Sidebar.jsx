@@ -1,44 +1,75 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import API from "../../api";
 import Spinner from "./spinner";
 import { BiPlusCircle } from "react-icons/bi";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { IoCheckmark } from "react-icons/io5";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { setUser } from "../redux/user/userSlice";
+import { setSelectedFolder } from "../redux/user/folderSlice";
 
 function Sidebar({ loading }) {
   const user = useSelector((state) => state.user.currentUser);
-  console.log("current User: ", user);
+  const selectedFolder = useSelector((state) => state.folder.selectedFolder);
+  const [foldersOpen, setFoldersOpen] = useState(false);
 
   return (
     <div className="h-full bg-background py-2 px-2 w-40 border-r border-border">
-      <h1 className="font-medium text-2xl">Folders</h1>
-      <div className="flex flex-col">
-        {!loading &&
-          user.folders.map((folder, index) => (
-            <Folder title={folder} key={index} />
-          ))}
+      <button
+        className="flex place-items-center gap-3 font-medium text-2xl"
+        onClick={() => setFoldersOpen((foldersOpen) => !foldersOpen)}
+      >
+        <span>Folders</span>
+        {foldersOpen ? <FaChevronDown /> : <FaChevronUp />}
+      </button>
+
+      <div className="h-max">
+        <div className={`overflow-hidden ${!foldersOpen ? "h-0" : ""}`}>
+          <div className="flex flex-col">
+            {!loading &&
+              user &&
+              user.folders.map((folder, index) => (
+                <Folder
+                  title={folder}
+                  key={index}
+                  isActive={selectedFolder === folder}
+                />
+              ))}
+          </div>
+          <AddFolder user={user} />
+        </div>
       </div>
-      <AddFolder />
     </div>
   );
 }
 
-function Folder({ title }) {
-  return <span className="pl-2">{title}</span>;
+function Folder({ title, isActive }) {
+  const dispatch = useDispatch();
+  return (
+    <span
+      className="flex justify-between items-center cursor-pointer rounded hover:bg-accent hover:bg-opacity-40 transition-all"
+      onClick={() => dispatch(setSelectedFolder(title))}
+    >
+      <span className="pl-2">{title}</span>
+      {isActive && <IoCheckmark />}
+    </span>
+  );
 }
 
-function AddFolder() {
+function AddFolder({ user }) {
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
 
   return (
     <>
       <button
-        className="ml-2 font-medium text-md flex justify-center items-center gap-1 px-1 bg-primary border border-border rounded hover:scale-110 transition-all"
+        className="ml-2 mt-2 font-medium text-md flex justify-center items-center gap-1 px-1 bg-primary border border-border rounded hover:scale-110 transition-all"
         onClick={() => setOpen(true)}
       >
-        <span>Add</span>
+        <span>New</span>
         <BiPlusCircle />
       </button>
 
@@ -58,9 +89,12 @@ function AddFolder() {
           })}
           onSubmit={async (values, { setSubmitting }) => {
             values = { ...values };
-            let response = await API.post("/tasks/folder", values);
+            let response = await API.put(`/users/${user._id}`, {
+              folders: [...user.folders, values.title],
+            });
             setSubmitting(false);
             if (response.status === 200) {
+              dispatch(setUser(response.user));
               setOpen(false);
               //TODO set selected folder to newly created folder here
             }

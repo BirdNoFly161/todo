@@ -14,6 +14,7 @@ const TaskSchema = new Schema({
   status: {
     type: String,
     enum: ["Completed", "In progress", "Uncompleted"],
+    default: "Uncompleted",
   },
 });
 

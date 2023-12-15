@@ -9,6 +9,7 @@ import { BiPlusCircle } from "react-icons/bi";
 
 function AddTask({ setTasks }) {
   const currentUser = useSelector((state) => state.user.currentUser);
+  const selectedFolder = useSelector((state) => state.folder.selectedFolder);
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -36,12 +37,17 @@ function AddTask({ setTasks }) {
             endDate: Yup.date(),
           })}
           onSubmit={async (values, { setSubmitting }) => {
-            values = { ...values, people: [currentUser._id] };
+            values = {
+              ...values,
+              people: [currentUser._id],
+              folder: selectedFolder,
+            };
             let response = await API.post("/tasks", { task: values });
             setSubmitting(false);
             if (response.status === 200) {
               let response = await API.post("/tasks/search", {
                 user: currentUser,
+                folder: selectedFolder,
               });
               setTasks(response.tasks);
               setOpen(false);
