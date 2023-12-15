@@ -10,9 +10,11 @@ const TaskSchema = new Schema({
   deadline: Date,
   people: [{ type: Schema.Types.ObjectId, ref: "User" }],
   description: String,
+  folder: String,
   status: {
     type: String,
     enum: ["Completed", "In progress", "Uncompleted"],
+    default: "Uncompleted",
   },
 });
 

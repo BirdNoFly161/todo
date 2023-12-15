@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import API from "../../../api";
 import { getDateDiff, formatDiff } from "../../utils";
@@ -15,35 +15,46 @@ import { taskStatuses } from "../../constants";
 
 function Tasks() {
   const currentUser = useSelector((state) => state.user.currentUser);
+  const selectedFolder = useSelector((state) => state.folder.selectedFolder);
+  const [loading, setLoading] = useState(false);
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     const init = async function () {
+      setLoading(true);
       try {
         if (!currentUser) {
           return;
         }
-        console.log("sending tasks/search with current user: ", currentUser);
+
+        console.log("sending tasks/search with body: ", {
+          currentUser,
+          selectedFolder,
+        });
         let response = await API.post("/tasks/search", {
           user: currentUser,
+          folder: selectedFolder,
         });
         setTasks(response.tasks);
       } catch (error) {
         console.log(error);
       }
+      setLoading(false);
     };
 
     init();
-  }, []);
+  }, [selectedFolder]);
 
   return (
-    <div className="bg-background w-full flex flex-col items-center gap-8 border border-border rounded p-5">
+    <div className="bg-background w-full flex flex-col items-center gap-8 border border-border rounded p-5 h-full">
       {!currentUser ? (
         <span>You need to login to view your tasks</span>
+      ) : loading ? (
+        <Spinner />
       ) : (
         <>
           <span className="self-start font-bold text-2xl bg-background border-border py-1 rounded">
-            My tasks
+            {selectedFolder}
           </span>
           <div className="w-full flex flex-col justify-center items-center gap-2">
             {tasks.map((task, index) => (

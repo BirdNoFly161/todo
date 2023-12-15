@@ -138,4 +138,23 @@ router.post(
   },
 );
 
+router.put(
+  "/:id",
+  passport.authenticate("user", { session: false }),
+  async function (req, res) {
+    try {
+      let user = await User.findOne({ _id: req.params.id });
+      console.log("got user update body: ", req.body);
+      if (req.body.folders) {
+        user.folders = req.body.folders;
+      }
+      await user.save();
+      res.status(200).json({ user: user, msg: "user updated successfully" });
+    } catch (error) {
+      console.log("error: ", error);
+      res.status(500).json({ msg: "error trying to update user" });
+    }
+  },
+);
+
 export default router;
