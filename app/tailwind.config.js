@@ -4,10 +4,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#CD8D7A",
+        "primary-100": "#d9f2e2",
+        primary: "#32D96C",
         secondary: "#DBCC95",
-        accent: "#EEC759",
-        background: "#f2f2f2",
+        accent: "#008B8F",
+        background: "white",
         border: "#62664B",
       },
       boxShadow: {

@@ -6,6 +6,7 @@ import { BiErrorCircle } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { setAuthToken } from "../redux/user/userSlice";
 import { setUser } from "../redux/user/userSlice";
+import { setSelectedFolder } from "../redux/user/folderSlice";
 import API from "../../api";
 import toast from "react-hot-toast";
 
@@ -41,6 +42,7 @@ function SignInForm() {
             dispatch(setAuthToken(response.token));
             API.setAuthToken(response.token);
             dispatch(setUser(response.user));
+            dispatch(setSelectedFolder(response.user.folders[0]));
             setSubmitting(false);
             console.log(response);
             navigate("/");
@@ -66,7 +68,7 @@ function SignInForm() {
                     User name
                   </label>
                   <input
-                    className="w-full text-sm sm:text-lg px-2 py-1 rounded-tr rounded-br"
+                    className="w-full text-sm sm:text-lg px-2 py-1 rounded-tr rounded-br border border-border"
                     type="text"
                     id="username"
                     name="username"

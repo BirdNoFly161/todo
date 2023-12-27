@@ -19,4 +19,6 @@ const taskStatuses = ["Completed", "In progress", "Uncompleted"];
 
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri;", "Sat"];
 
-export { days, months, navLinks, taskStatuses };
+const taskListNames = ["Completed", "Uncompleted", "In progress"];
+
+export { days, months, navLinks, taskStatuses, taskListNames };

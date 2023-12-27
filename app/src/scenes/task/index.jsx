@@ -11,13 +11,23 @@ import Checkmark from "../../components/svg/checkmark";
 import AddTask from "./addTask";
 import Spinner from "../../components/spinner";
 import { Listbox } from "@headlessui/react";
-import { taskStatuses } from "../../constants";
+import { taskStatuses, taskListNames } from "../../constants";
+import { useContext } from "react";
+import { TaskListContext } from "../../contexts/taskListContext";
+import TaskList from "./taskList";
 
 function Tasks() {
   const currentUser = useSelector((state) => state.user.currentUser);
   const selectedFolder = useSelector((state) => state.folder.selectedFolder);
+  const [taskList, setTaskList] = useState([]);
+  const [clickedTask, setClickedTask] = useState(null);
+  const [from, setFrom] = useState(null);
   const [loading, setLoading] = useState(false);
   const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    console.log("latest clicked task: ", clickedTask);
+  }, [clickedTask]);
 
   useEffect(() => {
     const init = async function () {
@@ -35,7 +45,7 @@ function Tasks() {
           user: currentUser,
           folder: selectedFolder,
         });
-        setTasks(response.tasks);
+        setTaskList(response.tasks);
       } catch (error) {
         console.log(error);
       }
@@ -46,24 +56,35 @@ function Tasks() {
   }, [selectedFolder]);
 
   return (
-    <div className="bg-background w-full flex flex-col items-center gap-8 border border-border rounded p-5 h-full">
+    <div className="bg-background w-full h-full flex justify-center gap-8 rounded p-5">
       {!currentUser ? (
-        <span>You need to login to view your tasks</span>
+        <span className="font-bold text-3xl">
+          You need to login to view your tasks
+        </span>
       ) : loading ? (
         <Spinner />
       ) : (
-        <>
-          <span className="self-start font-bold text-2xl bg-background border-border py-1 rounded">
-            {selectedFolder}
-          </span>
-          <div className="w-full flex flex-col justify-center items-center gap-2">
-            {tasks.map((task, index) => (
-              <Task key={index} {...task} setTasks={setTasks} />
-            ))}
-          </div>
+        <TaskListContext.Provider
+          value={{
+            taskList,
+            setTaskList,
+            from,
+            setFrom,
+            clickedTask,
+            setClickedTask,
+          }}
+        >
+          <div className="w-full flex flex-col gap-2">
+            <h2 className="font-bold text-4xl mb-5">{selectedFolder}</h2>
 
-          <AddTask setTasks={setTasks} />
-        </>
+            <AddTask setTasks={setTaskList} />
+            <div className="w-full flex gap-3 grow">
+              <TaskList key={"Uncompleted"} name={"Uncompleted"} color="red" />
+              <TaskList key={"In progress"} name={"In progress"} color="blue" />
+              <TaskList key={"Completed"} name={"Completed"} color="green" />
+            </div>
+          </div>
+        </TaskListContext.Provider>
       )}
     </div>
   );

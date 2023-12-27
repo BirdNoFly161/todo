@@ -53,7 +53,7 @@ function DesktopNavbar({ links }) {
           <>
             <span
               onClick={() => navigate("/dashboard")}
-              className="text-lg flex flex-col justify-center bg-background text-center w-10 h-10 rounded-full cursor-pointer"
+              className="text-lg flex flex-col justify-center bg-background border border-transparent text-center w-10 h-10 rounded-full cursor-pointer hover:border-white"
             >
               {user.image && (
                 <img className="rounded-full" src={user.image} alt="" />
@@ -63,7 +63,7 @@ function DesktopNavbar({ links }) {
               )}
             </span>
             <button
-              className="sm:text-md lg:text-lg flex flex-col justify-center items-center px-2 py-1 min-w-[5em] bg-background border border-border text-center rounded hover:scale-110 transition-all"
+              className="sm:text-md lg:text-lg flex flex-col justify-center items-center px-2 py-1 min-w-[5em] bg-background border border-border text-center rounded-full hover:bg-background hover:text-primary hover:border hover:border-primary transition-all transition-all"
               onClick={async () => {
                 let response = await API.post("/users/logout", null);
                 dispatch(setAuthToken(null));
@@ -133,7 +133,7 @@ function MobileNavbar({ links }) {
                   <FaUserCircle className="w-10 h-10" />
                 </span>
                 <button
-                  className="sm:text-md lg:text-lg flex flex-col justify-center items-center p-2 min-w-[5em] bg-background text-center border border-border rounded hover:scale-110y transition-all"
+                  className="sm:text-md lg:text-lg flex flex-col justify-center items-center p-2 min-w-[5em] bg-background text-center border border-border rounded-full hover:bg-background hover:text-primary hover:border hover:border-primary transition-all"
                   onClick={async () => {
                     let response = await API.post("/users/logout", null);
                     dispatch(setAuthToken(null));
@@ -171,7 +171,7 @@ function MobileNavbar({ links }) {
 const StyledLink = ({ title, link }) => {
   return (
     <Link
-      className="sm:text-md lg:text-lg xl:text-xl flex flex-col justify-center px-2 py-1 min-w-[5em] bg-background text-center rounded hover:scale-110 transition-all"
+      className="sm:text-md lg:text-lg xl:text-xl flex flex-col justify-center px-2 py-1 min-w-[5em] bg-background text-center rounded-full hover:bg-background hover:text-primary transition-all"
       to={link}
     >
       <span>{title}</span>
