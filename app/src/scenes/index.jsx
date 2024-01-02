@@ -21,6 +21,7 @@ function Root() {
           setLoading(false);
           return;
         }
+        console.log(response.user.folders);
         dispatch(setAuthToken(response.token));
         dispatch(setUser(response.user));
         dispatch(setSelectedFolder(response.user.folders[0]));
@@ -43,7 +44,7 @@ function Root() {
       <Navbar />
       <div className="flex bg-background h-[calc(100vh-3rem)]">
         <Sidebar loading={loading} />
-        <div className="p-5 grow">
+        <div className="w-full flex justify-center items-center p-5">
           {loading && <Spinner />}
           {!loading && <Outlet />}
         </div>

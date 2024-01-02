@@ -7,23 +7,33 @@ import Spinner from "./spinner";
 import { BiPlusCircle } from "react-icons/bi";
 import { useSelector, useDispatch } from "react-redux";
 import { IoCheckmark } from "react-icons/io5";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
+import { TiFolderOpen } from "react-icons/ti";
 import { setUser } from "../redux/user/userSlice";
 import { setSelectedFolder } from "../redux/user/folderSlice";
+import { cn } from "../utils/cn";
 
 function Sidebar({ loading }) {
   const user = useSelector((state) => state.user.currentUser);
   const selectedFolder = useSelector((state) => state.folder.selectedFolder);
-  const [foldersOpen, setFoldersOpen] = useState(false);
-
+  const [foldersOpen, setFoldersOpen] = useState(true);
+  if (!user) return null;
   return (
-    <div className="h-full bg-background py-2 px-2 w-40 border-r border-border">
+    <div className="h-full bg-primary-100 py-6 px-4 w-72">
       <button
-        className="flex place-items-center gap-3 font-medium text-2xl"
+        className="w-full flex justify-between items-center gap-3 font-medium text-2xl py-1 px-2 rounded hover:bg-accent"
         onClick={() => setFoldersOpen((foldersOpen) => !foldersOpen)}
       >
-        <span>Folders</span>
-        {foldersOpen ? <FaChevronDown /> : <FaChevronUp />}
+        <span className="flex items-center gap-1">
+          <TiFolderOpen />
+          <span>My folders</span>
+        </span>
+
+        {
+          <FaChevronDown
+            className={cn("w-4 transition-all", { "rotate-180": foldersOpen })}
+          />
+        }
       </button>
 
       <div className="h-max">
@@ -50,7 +60,7 @@ function Folder({ title, isActive }) {
   const dispatch = useDispatch();
   return (
     <span
-      className="flex justify-between items-center cursor-pointer rounded hover:bg-accent hover:bg-opacity-40 transition-all"
+      className="flex justify-between items-center px-2 cursor-pointer rounded hover:bg-accent hover:bg-opacity-40 transition-all"
       onClick={() => dispatch(setSelectedFolder(title))}
     >
       <span className="pl-2">{title}</span>
@@ -66,7 +76,7 @@ function AddFolder({ user }) {
   return (
     <>
       <button
-        className="ml-2 mt-2 font-medium text-md flex justify-center items-center gap-1 px-1 bg-primary border border-border rounded hover:scale-110 transition-all"
+        className="ml-2 mt-2 font-medium text-md flex justify-center items-center gap-1 px-2 py-1 bg-primary text-white border border-border rounded-full hover:bg-background hover:text-primary hover:border hover:border-primary transition-all"
         onClick={() => setOpen(true)}
       >
         <span>New</span>
@@ -103,7 +113,7 @@ function AddFolder({ user }) {
         >
           {(formik) => (
             <form
-              className="w-fit h-fit p-5 flex flex-col justify-center items-center gap-10 bg-background border-2 border-border rounded p-4"
+              className="w-fit h-fit p-5 flex flex-col justify-center items-center gap-10 bg-background border-2 border-border rounded"
               onSubmit={formik.handleSubmit}
             >
               <h2 className="font-medium w-2/3 flex justify-center items-center text-xl sm:text-3xl">
@@ -112,9 +122,7 @@ function AddFolder({ user }) {
               <div className="flex flex-col w-full justify-center gap-3">
                 <div className="flex flex-col gap-3">
                   <div className="flex flex-col justify-center">
-                    {" "}
                     <div className="flex items-center">
-                      {" "}
                       <label
                         className="min-w-[5em] sm:min-w-[9em] bg-accent bg-opacity-70 rounded-tl rounded-bl px-2 py-1"
                         htmlFor="title"

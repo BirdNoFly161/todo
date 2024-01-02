@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import Spinner from "../../components/spinner";
 import API from "../../../api";
 import { BiPlusCircle } from "react-icons/bi";
+import { cn } from "../../utils/cn";
 
 function AddTask({ setTasks }) {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -14,7 +15,9 @@ function AddTask({ setTasks }) {
   return (
     <>
       <button
-        className="font-medium text-xl flex justify-center items-center gap-3 p-2 min-w-[5em] bg-primary border border-border rounded hover:scale-110 transition-all"
+        className={
+          "font-medium text-xl flex justify-center items-center gap-3 px-4 py-2 min-w-[5em] w-fit bg-primary text-background border border-border rounded-full hover:bg-background hover:text-primary hover:border hover:border-primary transition-all"
+        }
         onClick={() => setOpen(true)}
       >
         <span>New task</span>
@@ -23,7 +26,7 @@ function AddTask({ setTasks }) {
 
       <Dialog
         as="div"
-        className="fixed inset-0 flex justify-center items-center"
+        className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
         open={open}
         onClose={() => setOpen(true)}
       >
@@ -90,9 +93,7 @@ function AddTask({ setTasks }) {
 
                 <div className="flex flex-col gap-3">
                   <div className="flex flex-col">
-                    {" "}
                     <div className="flex items-stretch">
-                      {" "}
                       <label
                         className="min-w-[5em] sm:min-w-[9em] bg-accent bg-opacity-70 rounded-tl rounded-bl px-2 py-1"
                         htmlFor="deadline"

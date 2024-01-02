@@ -43,7 +43,7 @@ router.post(
 
     console.log("query: ", query);
 
-    let tasks = await Task.find(query);
+    let tasks = await Task.find(query).populate("people");
     console.log("found tasks", tasks);
     res.status(200).json({ tasks });
   },

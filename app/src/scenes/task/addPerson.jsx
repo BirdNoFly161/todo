@@ -14,7 +14,7 @@ function AddPerson({ open, setOpen, task, setTask }) {
   return (
     <Dialog
       as="div"
-      className="fixed inset-0 flex justify-center items-center"
+      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
       open={open}
       onClose={() => setOpen(true)}
     >
