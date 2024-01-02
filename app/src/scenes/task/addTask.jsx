@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import Spinner from "../../components/spinner";
 import API from "../../../api";
 import { BiPlusCircle } from "react-icons/bi";
+import { cn } from "../../utils/cn";
 
 function AddTask({ setTasks }) {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -14,7 +15,9 @@ function AddTask({ setTasks }) {
   return (
     <>
       <button
-        className="font-medium text-xl flex justify-center items-center gap-3 px-4 py-2 min-w-[5em] w-fit bg-primary text-background border border-border rounded-full hover:bg-background hover:text-primary hover:border hover:border-primary transition-all"
+        className={
+          "font-medium text-xl flex justify-center items-center gap-3 px-4 py-2 min-w-[5em] w-fit bg-primary text-background border border-border rounded-full hover:bg-background hover:text-primary hover:border hover:border-primary transition-all"
+        }
         onClick={() => setOpen(true)}
       >
         <span>New task</span>

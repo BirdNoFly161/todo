@@ -75,9 +75,11 @@ function Tasks() {
           }}
         >
           <div className="w-full flex flex-col gap-2">
-            <h2 className="font-bold text-4xl mb-5">{selectedFolder}</h2>
+            <span className="mb-5 flex gap-2 justify-between items-center">
+              <h2 className="font-bold text-4xl">{selectedFolder}</h2>
+              <AddTask setTasks={setTaskList} />
+            </span>
 
-            <AddTask setTasks={setTaskList} />
             <div className="w-full flex gap-3 grow">
               <TaskList key={"Uncompleted"} name={"Uncompleted"} color="red" />
               <TaskList key={"In progress"} name={"In progress"} color="blue" />
